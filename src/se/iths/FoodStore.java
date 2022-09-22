@@ -2,6 +2,7 @@ package se.iths;
 
 import se.iths.products.Dairy;
 import se.iths.products.Fruit;
+import se.iths.products.Product;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,32 +14,32 @@ public class FoodStore {
         ArrayList<Dairy> dairyArray = new ArrayList<>();
 
 
-        String menuChoise;
+        String menuChoice;
         do {
             printMenu();
-            menuChoise = menuSwitch(sc, dairyArray, fruitArray);
+            menuChoice = menuSwitch(sc, dairyArray, fruitArray);
 
-        } while (!menuChoise.equals("E"));
+        } while (!menuChoice.equals("E"));
 
     }
 
 
-    private static String menuSwitch(Scanner sc, ArrayList dairyArray, ArrayList fruitArray) {
-        String menuChoise;
-        menuChoise = sc.nextLine().toUpperCase();
+    private static String menuSwitch(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+        String menuChoice;
+        menuChoice = sc.nextLine().toUpperCase();
 
-        switch (menuChoise) {
+        switch (menuChoice) {
             case "1" -> addProductMenu(sc, dairyArray, fruitArray);
             case "2" -> printProducts(dairyArray, fruitArray);
-            case "3" -> showPrice(dairyArray, fruitArray);
+            case "3" -> showPrice(sc, dairyArray, fruitArray);
             case "4" -> showStock(dairyArray, fruitArray);
             case "E" -> System.out.println("Good bye!");
             default -> System.out.println("Wrong input, try again");
         }
-        return menuChoise;
+        return menuChoice;
     }
 
-    private static void addProductMenu(Scanner sc, ArrayList dairyArray, ArrayList fruitArray) {
+    private static void addProductMenu(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
         System.out.println("""
                  
                 What do you want to add?
@@ -53,7 +54,7 @@ public class FoodStore {
 
     }
 
-    private static void addDairyProduct(Scanner sc, ArrayList dairyArray) {
+    private static void addDairyProduct(Scanner sc, ArrayList<Dairy> dairyArray) {
 
         String tempProductName = getTempProductName(sc);
         Dairy newDairy = new Dairy(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
@@ -62,7 +63,7 @@ public class FoodStore {
     }
 
 
-    private static void addFruitProduct(Scanner sc, ArrayList fruitArray) {
+    private static void addFruitProduct(Scanner sc, ArrayList<Fruit> fruitArray) {
         String tempProductName = getTempProductName(sc);
         Fruit newFruit = new Fruit(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
         fruitArray.add(newFruit);
@@ -85,17 +86,31 @@ public class FoodStore {
         return sc.nextLine();
     }
 
-    private static void printProducts(ArrayList dairyArray, ArrayList fruitArray) {
+    private static void printProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
         System.out.println(dairyArray.toString());
         System.out.println(fruitArray.toString());
-    }//TODO
+    }
 
-    private static void showPrice(ArrayList dairyArray, ArrayList fruitArray) {
-        //Todo
+    private static void showPrice(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
 
-    }//TODO
+        ArrayList<Product> allProducts = new ArrayList<>();
+        allProducts.addAll(dairyArray);
+        allProducts.addAll(fruitArray);
 
-    private static void showStock(ArrayList dairyArray, ArrayList fruitArray) {
+        System.out.println("What product do you want to see the price for?");
+        String input = sc.nextLine();
+        for (Product product : allProducts) {
+            if (product.getEan() == Integer.parseInt(input))
+                System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
+            else if (product.getName().equals(input)) {
+                System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
+            } else System.out.println("The product you are looking for do not exist.");
+        }
+    }
+
+//TODO   fix crash if input is not int!
+
+    private static void showStock(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
         //Todo
     }//TODO
 

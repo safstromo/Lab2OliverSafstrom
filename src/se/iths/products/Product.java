@@ -2,7 +2,7 @@ package se.iths.products;
 
 import java.util.Objects;
 
-public abstract class Product {
+public class Product {
     private final String name;
     private double price;
     private final int ean;
@@ -12,6 +12,11 @@ public abstract class Product {
         this.name = name;
         this.price = price;
         this.ean = ean;
+    }
+
+    public Product(String name) {
+        this.name = name;
+        this.ean = 0;
     }
 
     public String getName() {

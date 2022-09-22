@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment=" add addProduct methods">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment=" add showProducts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Dairy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Dairy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Fruit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Fruit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +68,7 @@
       <workItem from="1663737388473" duration="68000" />
       <workItem from="1663822568405" duration="9661000" />
       <workItem from="1663840430557" duration="3114000" />
-      <workItem from="1663843669794" duration="3894000" />
+      <workItem from="1663843669794" duration="9256000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -93,7 +91,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663843844602</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=" add showProducts">
+      <created>1663851850053</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663851850053</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +119,7 @@
     <MESSAGE value="First commit" />
     <MESSAGE value=" add menu" />
     <MESSAGE value=" add addProduct methods" />
-    <option name="LAST_COMMIT_MESSAGE" value=" add addProduct methods" />
+    <MESSAGE value=" add showProducts" />
+    <option name="LAST_COMMIT_MESSAGE" value=" add showProducts" />
   </component>
 </project>
