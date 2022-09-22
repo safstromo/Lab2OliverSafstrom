@@ -27,13 +27,13 @@ public class Dairy extends Product {
 
     @Override
     public String toString() {
-        return "Dairy{" +
+        return "\nDairy{" +
                 "category='" + category + '\'' +
                 "name='" + super.getName()+ '\'' +
                 ", price=" + super.getPrice() +
                 ", ean=" + super.getEan() +
                 ", stock=" + super.getStock() +
-                '}';
+                "}";
     }
 }
 

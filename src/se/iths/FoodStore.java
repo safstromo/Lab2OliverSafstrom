@@ -28,24 +28,17 @@ public class FoodStore {
         menuChoise = sc.nextLine().toUpperCase();
 
         switch (menuChoise) {
-            case "1" -> addProduct(sc, dairyArray,fruitArray);
-            case "2" -> showProducts(dairyArray,fruitArray);
-            case "3" -> showPrice(dairyArray,fruitArray);
-            case "4" -> showStock(dairyArray,fruitArray);
+            case "1" -> addProductMenu(sc, dairyArray, fruitArray);
+            case "2" -> printProducts(dairyArray, fruitArray);
+            case "3" -> showPrice(dairyArray, fruitArray);
+            case "4" -> showStock(dairyArray, fruitArray);
             case "E" -> System.out.println("Good bye!");
             default -> System.out.println("Wrong input, try again");
         }
         return menuChoise;
     }
 
-    private static void addProduct(Scanner sc, ArrayList dairyArray, ArrayList fruitArray) {
-
-        showAddMenu(sc,dairyArray,fruitArray);
-
-    } //TODO
-
-    private static void showAddMenu(Scanner sc, ArrayList dairyArray, ArrayList fruitArray) {
-
+    private static void addProductMenu(Scanner sc, ArrayList dairyArray, ArrayList fruitArray) {
         System.out.println("""
                  
                 What do you want to add?
@@ -63,7 +56,7 @@ public class FoodStore {
     private static void addDairyProduct(Scanner sc, ArrayList dairyArray) {
 
         String tempProductName = getTempProductName(sc);
-        Dairy newDairy = new Dairy(getTempProductName(sc), getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
+        Dairy newDairy = new Dairy(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
         dairyArray.add(newDairy);
 
     }
@@ -92,8 +85,9 @@ public class FoodStore {
         return sc.nextLine();
     }
 
-    private static void showProducts(ArrayList dairyArray, ArrayList fruitArray) {
-        //Todo
+    private static void printProducts(ArrayList dairyArray, ArrayList fruitArray) {
+        System.out.println(dairyArray.toString());
+        System.out.println(fruitArray.toString());
     }//TODO
 
     private static void showPrice(ArrayList dairyArray, ArrayList fruitArray) {
