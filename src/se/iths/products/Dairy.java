@@ -5,9 +5,8 @@ import java.util.Objects;
 public class Dairy extends Product {
     private final String category = "Dairy";
 
-
-    public Dairy(double price, String brand, int ean, int stock) {
-        super(price, brand, ean, stock);
+    public Dairy(String name, double price, int ean) {
+        super(name, price, ean);
     }
 
     public String getCategory() {
@@ -30,6 +29,10 @@ public class Dairy extends Product {
     public String toString() {
         return "Dairy{" +
                 "category='" + category + '\'' +
+                "name='" + super.getName()+ '\'' +
+                ", price=" + super.getPrice() +
+                ", ean=" + super.getEan() +
+                ", stock=" + super.getStock() +
                 '}';
     }
 }

@@ -1,40 +1,63 @@
 package se.iths.products;
 
+import java.util.Objects;
+
 public abstract class Product {
+    private final String name;
     private double price;
-    private final String brand;
     private final int ean;
     private int stock;
 
-    public double getPrice() {
-        return price;
+    public Product(String name, double price, int ean) {
+        this.name = name;
+        this.price = price;
+        this.ean = ean;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getBrand() {
-        return brand;
+    public int getEan() {
+        return ean;
     }
 
     public int getStock() {
         return stock;
     }
 
-    public int getEan() {
-        return ean;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
-    Product(double price, String brand, int ean, int stock) {
-        this.price = price;
-        this.brand = brand;
-        this.ean = ean;
-        this.stock = stock;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product product)) return false;
+        return Double.compare(product.price, price) == 0 && ean == product.ean && stock == product.stock && Objects.equals(name, product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, price, ean, stock);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", ean=" + ean +
+                ", stock=" + stock +
+                '}';
     }
 }
 

@@ -2,12 +2,11 @@ package se.iths.products;
 
 import java.util.Objects;
 
-public class Fruit extends Product{
+public class Fruit extends Product {
     final String category = "Fruit";
 
-
-    Fruit(double price, String brand, int ean, int stock) {
-        super(price, brand, ean, stock);
+    public Fruit(String name, double price, int ean) {
+        super(name, price, ean);
     }
 
     public String getCategory() {
@@ -30,6 +29,10 @@ public class Fruit extends Product{
     public String toString() {
         return "Fruit{" +
                 "category='" + category + '\'' +
+                "name='" + super.getName()+ '\'' +
+                ", price=" + super.getPrice() +
+                ", ean=" + super.getEan() +
+                ", stock=" + super.getStock() +
                 '}';
     }
 }
