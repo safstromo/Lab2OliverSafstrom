@@ -93,22 +93,32 @@ public class FoodStore {
 
     private static void showPrice(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
 
-        ArrayList<Product> allProducts = new ArrayList<>();
-        allProducts.addAll(dairyArray);
-        allProducts.addAll(fruitArray);
-
-        System.out.println("What product do you want to see the price for?");
+        ArrayList<Product> allProducts = joinProducts(dairyArray, fruitArray);
+        System.out.println("What product do you want to see the price for? (Enter name or EAN)");
+        findPrice(allProducts, sc);
+    }
+    private static void findPrice(ArrayList<Product> allProducts, Scanner sc) {
         String input = sc.nextLine();
         for (Product product : allProducts) {
-            if (product.getEan() == Integer.parseInt(input))
-                System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
-            else if (product.getName().equals(input)) {
-                System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
-            } else System.out.println("The product you are looking for do not exist.");
+            try {
+                if (product.getEan() == Integer.parseInt(input))
+                    System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
+            } catch (NumberFormatException e) {
+                if (product.getName().equals(input)) {
+                    System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
+                } else System.out.println("The product you are looking for do not exist.");
+            }
         }
     }
 
-//TODO   fix crash if input is not int!
+    private static ArrayList<Product> joinProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+
+        ArrayList<Product> allProducts = new ArrayList<>();
+        allProducts.addAll(dairyArray);
+        allProducts.addAll(fruitArray);
+        return allProducts;
+    }
+
 
     private static void showStock(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
         //Todo
