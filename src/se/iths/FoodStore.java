@@ -32,9 +32,9 @@ public class FoodStore {
             case "1" -> addProductMenu(sc, dairyArray, fruitArray);
             case "2" -> printProducts(dairyArray, fruitArray);
             case "3" -> showPrice(sc, dairyArray, fruitArray);
-            case "4" -> showStock(dairyArray, fruitArray);
+            case "4" -> stockMenu(dairyArray, fruitArray, sc);
             case "E" -> System.out.println("Good bye!");
-            default -> System.out.println("Wrong input, try again");
+            default -> printError();
         }
         return menuChoice;
     }
@@ -48,8 +48,8 @@ public class FoodStore {
         switch (sc.nextLine().toUpperCase()) {
             case "1" -> addFruitProduct(sc, fruitArray);
             case "2" -> addDairyProduct(sc, dairyArray);
-            case "E" -> System.out.println("Exit to menu");
-            default -> System.out.println("Wrong input try again.");
+            case "E" -> printExit();
+            default -> printError();
         }
 
     }
@@ -83,7 +83,7 @@ public class FoodStore {
 
     private static String getTempProductName(Scanner sc) {
         System.out.print("Please enter product name: ");
-        return sc.nextLine();
+        return sc.nextLine().toUpperCase();
     }
 
     private static void printProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
@@ -93,20 +93,20 @@ public class FoodStore {
 
     private static void showPrice(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
 
-        ArrayList<Product> allProducts = joinProducts(dairyArray, fruitArray);
         System.out.println("What product do you want to see the price for? (Enter name or EAN)");
-        findPrice(allProducts, sc);
+        findPrice(joinProducts(dairyArray, fruitArray), sc);
     }
+
     private static void findPrice(ArrayList<Product> allProducts, Scanner sc) {
-        String input = sc.nextLine();
+        String input = sc.nextLine().toUpperCase();
         for (Product product : allProducts) {
             try {
                 if (product.getEan() == Integer.parseInt(input))
-                    System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
+                    printPrice(product);
             } catch (NumberFormatException e) {
-                if (product.getName().equals(input)) {
-                    System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
-                } else System.out.println("The product you are looking for do not exist.");
+                if (product.getName().toUpperCase().equals(input)) {
+                    printPrice(product);
+                } else printDoesNotExist();
             }
         }
     }
@@ -119,10 +119,102 @@ public class FoodStore {
         return allProducts;
     }
 
+    private static void showStock(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray, Scanner sc) {
 
-    private static void showStock(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
-        //Todo
-    }//TODO
+        System.out.println("What product do you want to see the stock for? (Enter name or EAN)");
+        findStock(sc, joinProducts(dairyArray, fruitArray));
+
+
+    }
+
+    private static void findStock(Scanner sc, ArrayList<Product> allProducts) {
+        String input = sc.nextLine().toUpperCase();
+        for (Product product : allProducts) {
+            try {
+                if (product.getEan() == Integer.parseInt(input))
+                    printStock(product);
+            } catch (NumberFormatException e) {
+                if (product.getName().toUpperCase().equals(input)) {
+                    printStock(product);
+                } else printDoesNotExist();
+            }
+        }
+    }
+
+    private static void stockMenu(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray, Scanner sc) {
+        System.out.println("""
+                 
+                Do you want to add stock or see stock?
+                1.Add stock
+                2.See stock""");
+        switch (sc.nextLine().toUpperCase()) {
+            case "1" -> addStock(sc, dairyArray, fruitArray);
+            case "2" -> showStock(dairyArray, fruitArray, sc);
+            case "E" -> printExit();
+            default -> printError();
+        }
+    }
+
+    private static void addStock(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+        System.out.println("What product do you want to add the stock for? (Enter name or EAN)");
+        String input = sc.nextLine().toUpperCase();
+
+        for (Product product : dairyArray) {
+            enterStock(sc, input, product);
+        }
+        for (Product product : fruitArray) {
+            enterStock(sc, input, product);
+        }
+
+
+    }
+
+    private static void enterStock(Scanner sc, String input, Product product) {
+        try {
+            if (product.getEan() == Integer.parseInt(input)) {
+                askForStock(product);
+                trySetStock(sc, product);
+            }
+        } catch (NumberFormatException e) {
+            if (product.getName().toUpperCase().equals(input)) {
+                askForStock(product);
+                trySetStock(sc, product);
+            } else printDoesNotExist();
+        }
+    }
+
+    private static void printPrice(Product product) {
+        System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
+    }
+
+    private static void printStock(Product product) {
+        System.out.println("The stock for: " + product.getName() + " is: " + product.getStock());
+    }
+
+    private static void printError() {
+        System.out.println("Wrong input, try again.");
+    }
+
+    private static void printExit() {
+        System.out.println("Exit to menu");
+    }
+
+    private static void printDoesNotExist() {
+        System.out.println("The product you are looking for do not exist.");
+    }
+
+    private static void trySetStock(Scanner sc, Product product) {
+        try {
+            product.setStock(Integer.parseInt(sc.nextLine()));
+        } catch (Exception e) {
+            System.out.println("Something went wrong try again.");
+        }
+    }
+
+    private static void askForStock(Product product) {
+        System.out.println("Enter stock for: " + product.getName());
+        System.out.println("How many do you have in stock?");
+    }
 
     private static void printMenu() {
         System.out.println("""

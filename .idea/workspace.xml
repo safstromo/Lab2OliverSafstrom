@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment=" add showPrice">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment=" add findPrice">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStore.java" afterDir="false" />
     </list>
@@ -69,7 +69,7 @@
       <workItem from="1663840430557" duration="3114000" />
       <workItem from="1663843669794" duration="9256000" />
       <workItem from="1663857381966" duration="160000" />
-      <workItem from="1663910220465" duration="673000" />
+      <workItem from="1663910220465" duration="4315000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -106,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663857498880</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary=" add findPrice">
+      <created>1663911155169</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663911155169</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +136,7 @@
     <MESSAGE value=" add addProduct methods" />
     <MESSAGE value=" add showProducts" />
     <MESSAGE value=" add showPrice" />
-    <option name="LAST_COMMIT_MESSAGE" value=" add showPrice" />
+    <MESSAGE value=" add findPrice" />
+    <option name="LAST_COMMIT_MESSAGE" value=" add findPrice" />
   </component>
 </project>
