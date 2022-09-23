@@ -13,13 +13,10 @@ public class FoodStore {
         ArrayList<Fruit> fruitArray = new ArrayList<>();
         ArrayList<Dairy> dairyArray = new ArrayList<>();
 
-
-        String menuChoice;
         do {
             printMenu();
-            menuChoice = menuSwitch(sc, dairyArray, fruitArray);
 
-        } while (!menuChoice.equals("E"));
+        } while (!menuSwitch(sc, dairyArray, fruitArray).equals("E"));
 
     }
 
@@ -61,7 +58,6 @@ public class FoodStore {
         dairyArray.add(newDairy);
 
     }
-
 
     private static void addFruitProduct(Scanner sc, ArrayList<Fruit> fruitArray) {
         String tempProductName = getTempProductName(sc);
