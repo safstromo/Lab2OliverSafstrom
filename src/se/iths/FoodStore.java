@@ -1,12 +1,13 @@
 package se.iths;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import se.iths.products.Dairy;
 import se.iths.products.Fruit;
 import se.iths.products.Product;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,13 +16,52 @@ public class FoodStore {
         Scanner sc = new Scanner(System.in);
         ArrayList<Fruit> fruitArray = new ArrayList<>();
         ArrayList<Dairy> dairyArray = new ArrayList<>();
-
+        fruitArray = importFruitProductDatabase(fruitArray);
+        dairyArray = importDairyProductDatabase(dairyArray);
 
         do {
             printMenu();
 
         } while (!menuSwitch(sc, dairyArray, fruitArray).equals("E"));
 
+    }
+
+    private static ArrayList<Fruit> importFruitProductDatabase(ArrayList<Fruit> fruitArray) {
+        try {
+            FileReader fileReader1 = new FileReader("fruits.json");
+            Gson gson = new Gson();
+
+            Type getTypeList = new TypeToken<ArrayList<Fruit>>() {
+            }.getType();
+
+
+            System.out.println("Import of fruit products successful");
+            return gson.fromJson(fileReader1, getTypeList);
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File of products not found continues without import.");
+            return fruitArray;
+        }
+    }
+
+    private static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray) {
+        try {
+            FileReader fileReader1 = new FileReader("dairys.json");
+            Gson gson = new Gson();
+
+            Type getTypeList = new TypeToken<ArrayList<Dairy>>() {
+            }.getType();
+
+
+            System.out.println("Import of dairy products successful");
+            return gson.fromJson(fileReader1, getTypeList);
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("File of products not found continues without import.");
+            return dairyArray;
+        }
     }
 
 

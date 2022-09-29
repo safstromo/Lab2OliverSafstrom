@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="cleanup">
-      <change afterPath="$PROJECT_DIR$/lib/gson-2.9.1-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/gson-2.9.1-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/gson-2.9.1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/se/iths/products/dairyproducts.json" afterDir="false" />
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="add writeToJson">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Lab2OliverSafstrom.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Lab2OliverSafstrom.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Dairy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Dairy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Fruit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Fruit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +99,9 @@
       <workItem from="1664178855487" duration="9273000" />
       <workItem from="1664342758320" duration="3317000" />
       <workItem from="1664362890355" duration="4819000" />
-      <workItem from="1664383023062" duration="3636000" />
+      <workItem from="1664383023062" duration="7338000" />
+      <workItem from="1664447337635" duration="21000" />
+      <workItem from="1664451777543" duration="1115000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -166,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663914781475</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add writeToJson">
+      <created>1664431223341</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1664431223341</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +191,7 @@
     <MESSAGE value=" add showPrice" />
     <MESSAGE value=" add findPrice" />
     <MESSAGE value="cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
+    <MESSAGE value="add writeToJson" />
+    <option name="LAST_COMMIT_MESSAGE" value="add writeToJson" />
   </component>
 </project>
