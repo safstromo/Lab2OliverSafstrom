@@ -1,9 +1,12 @@
 package se.iths;
 
+import com.google.gson.Gson;
 import se.iths.products.Dairy;
 import se.iths.products.Fruit;
 import se.iths.products.Product;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +15,7 @@ public class FoodStore {
         Scanner sc = new Scanner(System.in);
         ArrayList<Fruit> fruitArray = new ArrayList<>();
         ArrayList<Dairy> dairyArray = new ArrayList<>();
+
 
         do {
             printMenu();
@@ -22,17 +26,40 @@ public class FoodStore {
 
 
     private static String menuSwitch(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
-        String menuChoice;
-        menuChoice = sc.nextLine().toUpperCase();
+        String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
             case "1" -> addProductMenu(sc, dairyArray, fruitArray);
             case "2" -> printProducts(dairyArray, fruitArray);
             case "3" -> showPrice(sc, dairyArray, fruitArray);
             case "4" -> stockMenu(dairyArray, fruitArray, sc);
-            case "E" -> System.out.println("Good bye!");
+            case "E" -> {
+                System.out.println("Saving to file, Good bye!");
+                writeToJSON(dairyArray, fruitArray);
+            }
             default -> printError();
         }
+        return menuChoice;
+    }
+
+    private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+        try {
+            Gson gson = new Gson();
+            FileWriter fileWriter1 = new FileWriter("dairys.json");
+            FileWriter fileWriter2 = new FileWriter("fruits.json");
+            gson.toJson(dairyArray, fileWriter1);
+            gson.toJson(fruitArray, fileWriter2);
+            fileWriter1.close();
+            fileWriter2.close();
+            System.out.println("Saving successful");
+        } catch (IOException e) {
+            System.out.println("Saving failed");
+        }
+    }
+
+    static String getMenuChoice(Scanner sc) {
+        String menuChoice;
+        menuChoice = sc.nextLine().toUpperCase();
         return menuChoice;
     }
 
@@ -65,26 +92,25 @@ public class FoodStore {
         fruitArray.add(newFruit);
     }
 
-    private static int getTempProductPrice(Scanner sc, String tempProductName) {
+    static int getTempProductPrice(Scanner sc, String tempProductName) {
         System.out.println("Please enter price for " + tempProductName);
         String tempProductPrice = sc.nextLine();
         return Integer.parseInt(tempProductPrice);
     }
 
-    private static int getTempProductEAN(Scanner sc, String tempProductName) {
+    static int getTempProductEAN(Scanner sc, String tempProductName) {
         System.out.println("Please enter EAN for: " + tempProductName);
         String tempProductEAN = sc.nextLine();
         return Integer.parseInt(tempProductEAN);
     }
 
-    private static String getTempProductName(Scanner sc) {
+    static String getTempProductName(Scanner sc) {
         System.out.print("Please enter product name: ");
         return sc.nextLine().toUpperCase();
     }
 
     private static void printProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
-        System.out.println(dairyArray.toString());
-        System.out.println(fruitArray.toString());
+        System.out.println(joinProducts(dairyArray, fruitArray));
     }
 
     private static void showPrice(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
@@ -184,10 +210,10 @@ public class FoodStore {
     }
 
     private static void printStock(Product product) {
-        System.out.println("The stock for: " + product.getName() + " is: " + product.getStock());
+        System.out.println("The stock for " + product.getName() + " is: " + product.getStock());
     }
 
-    private static void printError() {
+    static void printError() {
         System.out.println("Wrong input, try again.");
     }
 

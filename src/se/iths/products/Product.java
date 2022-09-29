@@ -1,16 +1,20 @@
 package se.iths.products;
 
+import se.iths.FoodStore;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Product {
+public class Product implements Serializable{
     private final String name;
-    private double price;
+    private BigDecimal price;
     private final int ean;
     private int stock;
 
     public Product(String name, double price, int ean) {
         this.name = name;
-        this.price = price;
+        this.price = BigDecimal.valueOf(price);
         this.ean = ean;
     }
 
@@ -23,12 +27,12 @@ public class Product {
         return name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
-        this.price = price;
+        this.price = BigDecimal.valueOf(price);
     }
 
     public int getEan() {
@@ -47,7 +51,7 @@ public class Product {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product product)) return false;
-        return Double.compare(product.price, price) == 0 && ean == product.ean && stock == product.stock && Objects.equals(name, product.name);
+        return ean == product.ean && stock == product.stock && Objects.equals(name, product.name) && Objects.equals(price, product.price);
     }
 
     @Override
@@ -63,6 +67,17 @@ public class Product {
                 ", ean=" + ean +
                 ", stock=" + stock +
                 "}";
+    }
+
+    public enum Category{
+        FRUIT,
+        DAIRY,
+        MEATS,
+        FISH,
+        FROZEN,
+        DRINKS,
+        DRYFOODS,
+
     }
 }
 

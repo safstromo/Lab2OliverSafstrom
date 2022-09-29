@@ -3,13 +3,14 @@ package se.iths.products;
 import java.util.Objects;
 
 public class Fruit extends Product {
-    final String category = "Fruit";
+    Category category = Category.FRUIT;
 
     public Fruit(String name, double price, int ean) {
         super(name, price, ean);
+
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
