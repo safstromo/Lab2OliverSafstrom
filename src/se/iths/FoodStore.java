@@ -9,7 +9,10 @@ import se.iths.products.Product;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class FoodStore {
     public static void main(String[] args) {
@@ -73,6 +76,7 @@ public class FoodStore {
             case "2" -> printProducts(dairyArray, fruitArray);
             case "3" -> showPrice(sc, dairyArray, fruitArray);
             case "4" -> stockMenu(dairyArray, fruitArray, sc);
+            case "5" -> removeProduct(dairyArray, fruitArray, sc);
             case "E" -> {
                 System.out.println("Saving to file, Good bye!");
                 writeToJSON(dairyArray, fruitArray);
@@ -80,6 +84,18 @@ public class FoodStore {
             default -> printError();
         }
         return menuChoice;
+    }
+
+    private static void removeProduct(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray, Scanner sc) {
+        System.out.println("Enter name or EAN for the product you want to remove.");
+        String productToBeDeleted = getTempProductName(sc);
+        dairyArray.removeIf(o -> o.getName().equals(productToBeDeleted));
+        fruitArray.removeIf(o -> o.getName().equals(productToBeDeleted));
+        try {
+            dairyArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
+            fruitArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
+
+        }catch (Exception e){}
     }
 
     private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
@@ -288,6 +304,7 @@ public class FoodStore {
                 2.Show products
                 3.Show price
                 4.Stock
+                5.Remove product
                 e.Exit
                 ------------------""");
     }
