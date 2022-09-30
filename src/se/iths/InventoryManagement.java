@@ -6,26 +6,26 @@ import se.iths.products.Dairy;
 import se.iths.products.Fruit;
 import se.iths.products.Product;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-public class FoodStore {
+public class InventoryManagement {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Fruit> fruitArray = new ArrayList<>();
         ArrayList<Dairy> dairyArray = new ArrayList<>();
+        ArrayList<Product> cartArray = new ArrayList<>();
         fruitArray = importFruitProductDatabase(fruitArray);
         dairyArray = importDairyProductDatabase(dairyArray);
 
         do {
-            printMenu();
-
-        } while (!menuSwitch(sc, dairyArray, fruitArray).equals("E"));
+            printMenuInventoryManagement();
+        } while (!menuSwitchInventoryManagement(sc, dairyArray, fruitArray).equals("E"));
 
     }
 
@@ -50,7 +50,7 @@ public class FoodStore {
 
     private static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray) {
         try {
-            FileReader fileReader1 = new FileReader("dairys.json");
+            FileReader fileReader1 = new FileReader("dairies.json");
             Gson gson = new Gson();
 
             Type getTypeList = new TypeToken<ArrayList<Dairy>>() {
@@ -68,7 +68,7 @@ public class FoodStore {
     }
 
 
-    private static String menuSwitch(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    private static String menuSwitchInventoryManagement(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
         String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
@@ -101,7 +101,7 @@ public class FoodStore {
     private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
         try {
             Gson gson = new Gson();
-            FileWriter fileWriter1 = new FileWriter("dairys.json");
+            FileWriter fileWriter1 = new FileWriter("dairies.json");
             FileWriter fileWriter2 = new FileWriter("fruits.json");
             gson.toJson(dairyArray, fileWriter1);
             gson.toJson(fruitArray, fileWriter2);
@@ -294,10 +294,11 @@ public class FoodStore {
         System.out.println("How many do you have in stock?");
     }
 
-    private static void printMenu() {
+    private static void printMenuInventoryManagement() {
         System.out.println("""
                             
                     Food store
+                    Inventory
                       Menu
                 __________________
                 1.Add product

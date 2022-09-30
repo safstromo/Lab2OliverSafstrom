@@ -1,7 +1,5 @@
 package se.iths.products;
 
-import se.iths.FoodStore;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
