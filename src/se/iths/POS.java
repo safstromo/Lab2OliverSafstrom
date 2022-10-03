@@ -39,6 +39,8 @@ public interface POS {
     private static void checkout(ArrayList<Product> cart) {
         showCart(cart);
         writeToJSON(cart);
+        cart.forEach(product -> product.setStock(product.getStock() - 1));
+        cart.clear();
     }
 
     private static void removeProductToCart(Scanner sc, ArrayList<Product> cart) {
@@ -59,12 +61,25 @@ public interface POS {
         String productToFind = getTempProductName(sc);
         try {
             List<Product> findProductByEan = getProductsByEan(products, productToFind);
-            System.out.println(productToFind.toUpperCase() + " Added to cart");
-            cart.addAll(findProductByEan);
+            findProductByEan.forEach(product -> {
+                if (product.getStock() > 0) {
+                    System.out.println(productToFind.toUpperCase() + " Added to cart");
+                    cart.addAll(findProductByEan);
+                } else {
+                    System.out.println("Product not in stock.");
+                }
+            });
         } catch (NumberFormatException e) {
             List<Product> findProductByName = getProductByName(products, productToFind);
-            System.out.println(productToFind.toUpperCase() + " Added to cart");
-            cart.addAll(findProductByName);
+            findProductByName.forEach(product -> {
+                if (product.getStock() > 0) {
+                    System.out.println(productToFind.toUpperCase() + " Added to cart");
+                    cart.addAll(findProductByName);
+
+                } else {
+                    System.out.println("Product not in stock.");
+                }
+            });
         }
     } // TODO ADD IF NO STOCK
 

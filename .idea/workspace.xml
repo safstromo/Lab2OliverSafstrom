@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="Try catch pos">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="add checkout">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/POS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +132,7 @@
       <workItem from="1664447337635" duration="21000" />
       <workItem from="1664451777543" duration="6453000" />
       <workItem from="1664516024355" duration="4663000" />
-      <workItem from="1664777123433" duration="7296000" />
+      <workItem from="1664777123433" duration="10183000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -234,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664781547415</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="add checkout">
+      <created>1664784680858</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1664784680858</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +270,7 @@
     <MESSAGE value="add POS class add Foodstore class" />
     <MESSAGE value="add FoodStoreMain" />
     <MESSAGE value="Try catch pos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Try catch pos" />
+    <MESSAGE value="add checkout" />
+    <option name="LAST_COMMIT_MESSAGE" value="add checkout" />
   </component>
 </project>
