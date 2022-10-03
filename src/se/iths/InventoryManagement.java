@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -88,7 +89,8 @@ public interface InventoryManagement {
             dairyArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
             fruitArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
 
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
@@ -100,6 +102,20 @@ public interface InventoryManagement {
             gson.toJson(fruitArray, fileWriter2);
             fileWriter1.close();
             fileWriter2.close();
+            System.out.println("Saving successful");
+        } catch (IOException e) {
+            System.out.println("Saving failed");
+        }
+    }
+
+    static void writeToJSON(ArrayList<Product> cart) {
+        try {
+            Gson gson = new Gson();
+            FileWriter fileWriter1 = new FileWriter("cart.json");
+            gson.toJson(cart, fileWriter1);
+            BigDecimal sum = cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+            gson.toJson("Total price is : $" + sum,fileWriter1);
+            fileWriter1.close();
             System.out.println("Saving successful");
         } catch (IOException e) {
             System.out.println("Saving failed");
@@ -182,7 +198,7 @@ public interface InventoryManagement {
         }
     }
 
-    public static ArrayList<Product> joinProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    static ArrayList<Product> joinProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
 
         ArrayList<Product> allProducts = new ArrayList<>();
         allProducts.addAll(dairyArray);

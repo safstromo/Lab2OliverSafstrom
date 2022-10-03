@@ -15,8 +15,7 @@ public class FoodStoreMain implements POS, InventoryManagement {
     public static ArrayList<Product> cart = new ArrayList<>();
 
     public static Scanner getScanner() {
-        Scanner sc = new Scanner(System.in);
-        return sc;
+        return new Scanner(System.in);
     }
 
 
@@ -41,9 +40,7 @@ public class FoodStoreMain implements POS, InventoryManagement {
                     System.out.println("Good bye!");
                     System.exit(0);
                 }
-                default -> {
-                    System.out.println("Wrong input try again");
-                }
+                default -> System.out.println("Wrong input try again");
 
             }
 

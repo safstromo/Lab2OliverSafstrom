@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="add FoodStoreMain">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="Try catch pos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
@@ -134,7 +134,7 @@
       <workItem from="1664447337635" duration="21000" />
       <workItem from="1664451777543" duration="6453000" />
       <workItem from="1664516024355" duration="4663000" />
-      <workItem from="1664777123433" duration="4392000" />
+      <workItem from="1664777123433" duration="7296000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -227,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664778102854</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Try catch pos">
+      <created>1664781547415</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1664781547415</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +264,7 @@
     <MESSAGE value="add removeProducts" />
     <MESSAGE value="add POS class add Foodstore class" />
     <MESSAGE value="add FoodStoreMain" />
-    <option name="LAST_COMMIT_MESSAGE" value="add FoodStoreMain" />
+    <MESSAGE value="Try catch pos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Try catch pos" />
   </component>
 </project>
