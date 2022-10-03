@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Product implements Serializable{
     private final String name;
-    private BigDecimal price;
+    private final BigDecimal price;
     private final int ean;
     private int stock;
 

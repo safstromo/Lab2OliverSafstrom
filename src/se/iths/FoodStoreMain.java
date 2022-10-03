@@ -1,7 +1,6 @@
 package se.iths;
 
 import com.google.gson.Gson;
-import se.iths.products.Dairy;
 import se.iths.products.Product;
 
 import java.util.ArrayList;
