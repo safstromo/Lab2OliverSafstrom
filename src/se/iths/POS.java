@@ -1,5 +1,6 @@
 package se.iths;
 
+import com.google.gson.Gson;
 import se.iths.products.Product;
 
 import java.math.BigDecimal;
@@ -12,22 +13,21 @@ import static se.iths.InventoryManagement.*;
 public interface POS {
 
 
-    static void startPOS(Scanner sc) {
+    static void startPOS(Scanner sc, Gson gson) {
         do {
             printMenuPos();
-            menuSwitchPos(sc, FoodStoreMain.products, FoodStoreMain.cart);
+            menuSwitchPos(sc, FoodStoreMain.products, FoodStoreMain.cart, gson);
         } while (true);
     }
 
-    static void menuSwitchPos(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
+    static void menuSwitchPos(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart, Gson gson) {
         String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
             case "1" -> addProductToCart(sc, products, cart);
             case "2" -> removeProductToCart(sc, cart);
             case "3" -> showCart(cart);
-            case "4" ->
-                    checkout(cart); // TODO Print product and prices to recite and save to file, remove products from arraylist cart.
+            case "4" -> checkout(cart, gson); // TODO LOOKS OF THE PRINT
             case "E" -> {
                 System.out.println("Good bye!");
                 System.exit(0);
@@ -36,9 +36,9 @@ public interface POS {
         }
     }
 
-    private static void checkout(ArrayList<Product> cart) {
+    private static void checkout(ArrayList<Product> cart, Gson gson) {
         showCart(cart);
-        writeToJSON(cart);
+        writeToJSON(cart, gson);
         cart.forEach(product -> product.setStock(product.getStock() - 1));
         cart.clear();
     }
@@ -62,26 +62,24 @@ public interface POS {
         try {
             List<Product> findProductByEan = getProductsByEan(products, productToFind);
             findProductByEan.forEach(product -> {
-                if (product.getStock() > 0) {
-                    System.out.println(productToFind.toUpperCase() + " Added to cart");
-                    cart.addAll(findProductByEan);
-                } else {
-                    System.out.println("Product not in stock.");
-                }
+                checkIfInStock(cart, productToFind, findProductByEan, product);
             });
         } catch (NumberFormatException e) {
             List<Product> findProductByName = getProductByName(products, productToFind);
             findProductByName.forEach(product -> {
-                if (product.getStock() > 0) {
-                    System.out.println(productToFind.toUpperCase() + " Added to cart");
-                    cart.addAll(findProductByName);
-
-                } else {
-                    System.out.println("Product not in stock.");
-                }
+                checkIfInStock(cart, productToFind, findProductByName, product);
             });
         }
-    } // TODO ADD IF NO STOCK
+    }
+
+    private static void checkIfInStock(ArrayList<Product> cart, String productToFind, List<Product> findProductByEan, Product product) {
+        if (product.getStock() > 0) {
+            System.out.println(productToFind.toUpperCase() + " Added to cart");
+            cart.addAll(findProductByEan);
+        } else {
+            System.out.println("Product not in stock.");
+        }
+    }
 
     private static List<Product> getProductsByEan(ArrayList<Product> products, String productToFind) {
         return products.stream().filter(p -> p.getEan() == Integer.parseInt(productToFind)).toList();

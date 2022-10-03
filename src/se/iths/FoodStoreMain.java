@@ -1,5 +1,6 @@
 package se.iths;
 
+import com.google.gson.Gson;
 import se.iths.products.Dairy;
 import se.iths.products.Fruit;
 import se.iths.products.Product;
@@ -18,13 +19,17 @@ public class FoodStoreMain implements POS, InventoryManagement {
         return new Scanner(System.in);
     }
 
+    private static Gson getGson() {
+        return new Gson();
+    }
+
 
     public static void main(String[] args) {
         Scanner sc = getScanner();
-
-        fruitArray = InventoryManagement.importFruitProductDatabase(fruitArray);
-        dairyArray = InventoryManagement.importDairyProductDatabase(dairyArray);
-        products = InventoryManagement.joinProducts(dairyArray,fruitArray);
+        Gson gson = getGson();
+        fruitArray = InventoryManagement.importFruitProductDatabase(fruitArray, gson);
+        dairyArray = InventoryManagement.importDairyProductDatabase(dairyArray,gson);
+        products = InventoryManagement.joinProducts(dairyArray, fruitArray);
 
         while (true) {
             System.out.println("""
@@ -33,10 +38,10 @@ public class FoodStoreMain implements POS, InventoryManagement {
                     2. Inventory Management
                     e. Exit
                     """);
-            switch (sc.next()) {
-                case "1" -> POS.startPOS(getScanner());
-                case "2" -> InventoryManagement.startInventoryManagement(getScanner(), fruitArray, dairyArray);
-                case "e", "E" -> {
+            switch (InventoryManagement.getMenuChoice(sc)) {
+                case "1" -> POS.startPOS(getScanner(),gson);
+                case "2" -> InventoryManagement.startInventoryManagement(getScanner(), fruitArray, dairyArray,gson);
+                case "E" -> {
                     System.out.println("Good bye!");
                     System.exit(0);
                 }

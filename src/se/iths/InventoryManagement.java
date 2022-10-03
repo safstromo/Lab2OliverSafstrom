@@ -16,24 +16,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public interface InventoryManagement {
-    static void startInventoryManagement(Scanner sc, ArrayList<Fruit> fruitArray, ArrayList<Dairy> dairyArray) {
+
+    static void startInventoryManagement(Scanner sc, ArrayList<Fruit> fruitArray, ArrayList<Dairy> dairyArray,Gson gson) {
         do {
             printMenuInventoryManagement();
-        } while (!menuSwitchInventoryManagement(sc, dairyArray, fruitArray).equals("E"));
+        } while (!menuSwitchInventoryManagement(sc, dairyArray, fruitArray,gson).equals("E"));
     }
 
-    static ArrayList<Fruit> importFruitProductDatabase(ArrayList<Fruit> fruitArray) {
+    static ArrayList<Fruit> importFruitProductDatabase(ArrayList<Fruit> fruitArray,Gson gson) {
         try {
             FileReader fileReader1 = new FileReader("fruits.json");
-            Gson gson = new Gson();
-
             Type getTypeList = new TypeToken<ArrayList<Fruit>>() {
             }.getType();
-
-
             System.out.println("Import of fruit products successful");
             return gson.fromJson(fileReader1, getTypeList);
-
 
         } catch (FileNotFoundException e) {
             System.out.println("File of products not found continues without import.");
@@ -41,18 +37,13 @@ public interface InventoryManagement {
         }
     }
 
-    static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray) {
+    static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray,Gson gson) {
         try {
             FileReader fileReader1 = new FileReader("dairies.json");
-            Gson gson = new Gson();
-
             Type getTypeList = new TypeToken<ArrayList<Dairy>>() {
             }.getType();
-
-
             System.out.println("Import of dairy products successful");
             return gson.fromJson(fileReader1, getTypeList);
-
 
         } catch (FileNotFoundException e) {
             System.out.println("File of products not found continues without import.");
@@ -61,7 +52,7 @@ public interface InventoryManagement {
     }
 
 
-    private static String menuSwitchInventoryManagement(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    private static String menuSwitchInventoryManagement(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray,Gson gson) {
         String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
@@ -72,7 +63,7 @@ public interface InventoryManagement {
             case "5" -> removeProduct(dairyArray, fruitArray, sc);
             case "E" -> {
                 System.out.println("Saving to file, Good bye!");
-                writeToJSON(dairyArray, fruitArray);
+                writeToJSON(dairyArray, fruitArray,gson);
                 System.exit(0);
             }
             default -> printError();
@@ -89,13 +80,12 @@ public interface InventoryManagement {
             dairyArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
             fruitArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
-    private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray,Gson gson) {
         try {
-            Gson gson = new Gson();
             FileWriter fileWriter1 = new FileWriter("dairies.json");
             FileWriter fileWriter2 = new FileWriter("fruits.json");
             gson.toJson(dairyArray, fileWriter1);
@@ -108,13 +98,12 @@ public interface InventoryManagement {
         }
     }
 
-    static void writeToJSON(ArrayList<Product> cart) {
+    static void writeToJSON(ArrayList<Product> cart,Gson gson) {
         try {
-            Gson gson = new Gson();
             FileWriter fileWriter1 = new FileWriter("cart.json");
             gson.toJson(cart, fileWriter1);
             BigDecimal sum = cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-            gson.toJson("Total price is : $" + sum,fileWriter1);
+            gson.toJson("Total price is : $" + sum, fileWriter1);
             fileWriter1.close();
             System.out.println("Saving successful");
         } catch (IOException e) {
