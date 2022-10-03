@@ -3,7 +3,7 @@ package se.iths;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import se.iths.products.Dairy;
-import se.iths.products.Products;
+import se.iths.products.Fruit;
 import se.iths.products.Product;
 
 import java.io.FileNotFoundException;
@@ -26,7 +26,7 @@ public interface InventoryManagement {
     static ArrayList<Product> importProductDatabase(ArrayList<Product> products, Gson gson) {
         try {
             FileReader fileReader1 = new FileReader("products.json");
-            Type getTypeList = new TypeToken<ArrayList<Products>>() {
+            Type getTypeList = new TypeToken<ArrayList<Fruit>>() {
             }.getType();
             System.out.println("Import of fruit products successful");
             return gson.fromJson(fileReader1, getTypeList);
@@ -121,7 +121,7 @@ public interface InventoryManagement {
 
     private static void addFruitProduct(Scanner sc, ArrayList<Product> products) {
         String tempProductName = getTempProductName(sc);
-        Products newFruit = new Products(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
+        Fruit newFruit = new Fruit(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
         products.add(newFruit);
 
     }

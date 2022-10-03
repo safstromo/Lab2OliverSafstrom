@@ -16,21 +16,12 @@ public class Product implements Serializable{
         this.ean = ean;
     }
 
-    public Product(String name) {
-        this.name = name;
-        this.ean = 0;
-    }
-
     public String getName() {
         return name;
     }
 
     public BigDecimal getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = BigDecimal.valueOf(price);
     }
 
     public int getEan() {

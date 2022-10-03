@@ -2,10 +2,10 @@ package se.iths.products;
 
 import java.util.Objects;
 
-public class Products extends Product {
+public class Fruit extends Product {
     Category category = Category.FRUIT;
 
-    public Products(String name, double price, int ean) {
+    public Fruit(String name, double price, int ean) {
         super(name, price, ean);
 
     }
@@ -17,7 +17,7 @@ public class Products extends Product {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Products fruit)) return false;
+        if (!(o instanceof Fruit fruit)) return false;
         return Objects.equals(category, fruit.category);
     }
 
