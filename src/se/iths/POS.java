@@ -12,35 +12,28 @@ import static se.iths.InventoryManagement.*;
 public interface POS {
 
 
-    public static void main(String[] args) {
-
-
-        Scanner sc = new Scanner(System.in);
-
-        startPOS(sc);
-
-
-    }
-
     static void startPOS(Scanner sc) {
         do {
             printMenuPos();
             menuSwitchPos(sc, FoodStoreMain.products, FoodStoreMain.cart);
-        } while (!menuSwitchPos(sc, FoodStoreMain.products, FoodStoreMain.cart).equals("E"));
+        } while (true);
     }
 
-    public static String menuSwitchPos(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
+    public static void menuSwitchPos(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
         String menuChoice = getMenuChoice(sc);
+
         switch (menuChoice) {
             case "1" -> addProductToCart(sc, products, cart);
-            case "2" -> removeProductToCart(sc, cart);
-            case "3" -> showCart(cart);
+            case "2" -> removeProductToCart(sc, cart); //  TODO Trycatch
+            case "3" -> showCart(cart); //  TODO Trycatch
             case "4" ->
                     checkout(cart); // TODO Print product and prices to recite and save to file, remove products from arraylist cart.
-            case "E" -> System.out.println("Good bye!");
+            case "E" -> {
+                System.out.println("Good bye!");
+                System.exit(0);
+            }
             default -> InventoryManagement.printError();
         }
-        return menuChoice;
     }
 
     private static void checkout(ArrayList<Product> cart) {
@@ -48,21 +41,29 @@ public interface POS {
 
     private static void removeProductToCart(Scanner sc, ArrayList<Product> cart) {
         String productToFind = getTempProductName(sc);
-        List<Product> findProductByName = getProductByName(cart, productToFind);
-        List<Product> findProductByEan = getProductsByEan(cart, productToFind);
-        System.out.println(productToFind.toUpperCase() + "removed from cart");
-        cart.removeAll(findProductByName);
-        cart.removeAll(findProductByEan);
+
+        try {
+            List<Product> findProductByEan = getProductsByEan(cart, productToFind);
+            System.out.println(productToFind.toUpperCase() + " removed from cart");
+            cart.removeAll(findProductByEan);
+        } catch (NumberFormatException e) {
+            List<Product> findProductByName = getProductByName(cart, productToFind);
+            System.out.println(productToFind.toUpperCase() + " removed from cart");
+            cart.removeAll(findProductByName);
+        }
     }
 
     private static void addProductToCart(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
         String productToFind = getTempProductName(sc);
-        List<Product> findProductByName = getProductByName(products, productToFind);
-        List<Product> findProductByEan = getProductsByEan(products, productToFind);
-        cart.addAll(findProductByName);
-        cart.addAll(findProductByEan);
-        System.out.println(productToFind.toUpperCase() + "Added to cart");
-
+        try {
+            List<Product> findProductByEan = getProductsByEan(products, productToFind);
+            System.out.println(productToFind.toUpperCase() + " Added to cart");
+            cart.addAll(findProductByEan);
+        } catch (NumberFormatException e) {
+            List<Product> findProductByName = getProductByName(products, productToFind);
+            System.out.println(productToFind.toUpperCase() + " Added to cart");
+            cart.addAll(findProductByName);
+        }
     }
 
     private static List<Product> getProductsByEan(ArrayList<Product> products, String productToFind) {

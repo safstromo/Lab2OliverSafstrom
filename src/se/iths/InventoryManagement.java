@@ -15,17 +15,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public interface InventoryManagement {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Fruit> fruitArray = new ArrayList<>();
-        ArrayList<Dairy> dairyArray = new ArrayList<>();
-        ArrayList<Product> cartArray = new ArrayList<>();
-        fruitArray = importFruitProductDatabase(fruitArray);
-        dairyArray = importDairyProductDatabase(dairyArray);
-
-        startInventoryManagement(sc, fruitArray, dairyArray);
-
-    }
     static void startInventoryManagement(Scanner sc, ArrayList<Fruit> fruitArray, ArrayList<Dairy> dairyArray) {
         do {
             printMenuInventoryManagement();
@@ -83,6 +72,7 @@ public interface InventoryManagement {
             case "E" -> {
                 System.out.println("Saving to file, Good bye!");
                 writeToJSON(dairyArray, fruitArray);
+                System.exit(0);
             }
             default -> printError();
         }
@@ -192,7 +182,7 @@ public interface InventoryManagement {
         }
     }
 
-    private static ArrayList<Product> joinProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    public static ArrayList<Product> joinProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
 
         ArrayList<Product> allProducts = new ArrayList<>();
         allProducts.addAll(dairyArray);
