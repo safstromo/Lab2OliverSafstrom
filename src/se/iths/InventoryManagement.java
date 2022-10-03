@@ -3,7 +3,7 @@ package se.iths;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import se.iths.products.Dairy;
-import se.iths.products.Fruit;
+import se.iths.products.Products;
 import se.iths.products.Product;
 
 import java.io.FileNotFoundException;
@@ -17,53 +17,38 @@ import java.util.Scanner;
 
 public interface InventoryManagement {
 
-    static void startInventoryManagement(Scanner sc, ArrayList<Fruit> fruitArray, ArrayList<Dairy> dairyArray,Gson gson) {
+    static void startInventoryManagement(Scanner sc, ArrayList<Product> products, Gson gson) {
         do {
             printMenuInventoryManagement();
-        } while (!menuSwitchInventoryManagement(sc, dairyArray, fruitArray,gson).equals("E"));
+        } while (!menuSwitchInventoryManagement(sc, products, gson).equals("E"));
     }
 
-    static ArrayList<Fruit> importFruitProductDatabase(ArrayList<Fruit> fruitArray,Gson gson) {
+    static ArrayList<Product> importProductDatabase(ArrayList<Product> products, Gson gson) {
         try {
-            FileReader fileReader1 = new FileReader("fruits.json");
-            Type getTypeList = new TypeToken<ArrayList<Fruit>>() {
+            FileReader fileReader1 = new FileReader("products.json");
+            Type getTypeList = new TypeToken<ArrayList<Products>>() {
             }.getType();
             System.out.println("Import of fruit products successful");
             return gson.fromJson(fileReader1, getTypeList);
 
         } catch (FileNotFoundException e) {
             System.out.println("File of products not found continues without import.");
-            return fruitArray;
+            return products;
         }
     }
 
-    static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray,Gson gson) {
-        try {
-            FileReader fileReader1 = new FileReader("dairies.json");
-            Type getTypeList = new TypeToken<ArrayList<Dairy>>() {
-            }.getType();
-            System.out.println("Import of dairy products successful");
-            return gson.fromJson(fileReader1, getTypeList);
-
-        } catch (FileNotFoundException e) {
-            System.out.println("File of products not found continues without import.");
-            return dairyArray;
-        }
-    }
-
-
-    private static String menuSwitchInventoryManagement(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray,Gson gson) {
+    private static String menuSwitchInventoryManagement(Scanner sc, ArrayList<Product> products, Gson gson) {
         String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
-            case "1" -> addProductMenu(sc, dairyArray, fruitArray);
-            case "2" -> printProducts(dairyArray, fruitArray);
-            case "3" -> showPrice(sc, dairyArray, fruitArray);
-            case "4" -> stockMenu(dairyArray, fruitArray, sc);
-            case "5" -> removeProduct(dairyArray, fruitArray, sc);
+            case "1" -> addProductMenu(sc, products);
+            case "2" -> printProducts(products);
+            case "3" -> showPrice(sc, products);
+            case "4" -> stockMenu(products, sc);
+            case "5" -> removeProduct(products, sc);
             case "E" -> {
                 System.out.println("Saving to file, Good bye!");
-                writeToJSON(dairyArray, fruitArray,gson);
+                writeProductsToJSON(products, gson);
                 System.exit(0);
             }
             default -> printError();
@@ -71,34 +56,28 @@ public interface InventoryManagement {
         return menuChoice;
     }
 
-    private static void removeProduct(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray, Scanner sc) {
+    private static void removeProduct(ArrayList<Product> products, Scanner sc) {
         System.out.println("Enter name or EAN for the product you want to remove.");
         String productToBeDeleted = getTempProductName(sc);
-        dairyArray.removeIf(o -> o.getName().equals(productToBeDeleted));
-        fruitArray.removeIf(o -> o.getName().equals(productToBeDeleted));
+        products.removeIf(o -> o.getName().equals(productToBeDeleted));
         try {
-            dairyArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
-            fruitArray.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
-
+            products.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
         } catch (Exception ignored) {
         }
     }
 
-    private static void writeToJSON(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray,Gson gson) {
+    private static void writeProductsToJSON(ArrayList<Product> products, Gson gson) {
         try {
-            FileWriter fileWriter1 = new FileWriter("dairies.json");
-            FileWriter fileWriter2 = new FileWriter("fruits.json");
-            gson.toJson(dairyArray, fileWriter1);
-            gson.toJson(fruitArray, fileWriter2);
-            fileWriter1.close();
-            fileWriter2.close();
+            FileWriter fileWriter = new FileWriter("products.json");
+            gson.toJson(products, fileWriter);
+            fileWriter.close();
             System.out.println("Saving successful");
         } catch (IOException e) {
             System.out.println("Saving failed");
         }
     }
 
-    static void writeToJSON(ArrayList<Product> cart,Gson gson) {
+    static void writeCartToJSON(ArrayList<Product> cart, Gson gson) {
         try {
             FileWriter fileWriter1 = new FileWriter("cart.json");
             gson.toJson(cart, fileWriter1);
@@ -117,33 +96,34 @@ public interface InventoryManagement {
         return menuChoice;
     }
 
-    private static void addProductMenu(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    private static void addProductMenu(Scanner sc, ArrayList<Product> products) {
         System.out.println("""
                  
                 What do you want to add?
                 1.Fruit product
                 2.Dairy product""");
         switch (sc.nextLine().toUpperCase()) {
-            case "1" -> addFruitProduct(sc, fruitArray);
-            case "2" -> addDairyProduct(sc, dairyArray);
+            case "1" -> addFruitProduct(sc, products);
+            case "2" -> addDairyProduct(sc, products);
             case "E" -> printExit();
             default -> printError();
         }
 
     }
 
-    private static void addDairyProduct(Scanner sc, ArrayList<Dairy> dairyArray) {
+    private static void addDairyProduct(Scanner sc, ArrayList<Product> products) {
 
         String tempProductName = getTempProductName(sc);
         Dairy newDairy = new Dairy(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
-        dairyArray.add(newDairy);
+        products.add(newDairy);
 
     }
 
-    private static void addFruitProduct(Scanner sc, ArrayList<Fruit> fruitArray) {
+    private static void addFruitProduct(Scanner sc, ArrayList<Product> products) {
         String tempProductName = getTempProductName(sc);
-        Fruit newFruit = new Fruit(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
-        fruitArray.add(newFruit);
+        Products newFruit = new Products(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
+        products.add(newFruit);
+
     }
 
     static int getTempProductPrice(Scanner sc, String tempProductName) {
@@ -163,14 +143,14 @@ public interface InventoryManagement {
         return sc.nextLine().toUpperCase();
     }
 
-    private static void printProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
-        System.out.println(joinProducts(dairyArray, fruitArray));
+    private static void printProducts(ArrayList<Product> products) {
+        System.out.println(products);
     }
 
-    private static void showPrice(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    private static void showPrice(Scanner sc, ArrayList<Product> products) {
 
         System.out.println("What product do you want to see the price for? (Enter name or EAN)");
-        findPrice(joinProducts(dairyArray, fruitArray), sc);
+        findPrice(products, sc);
     }
 
     private static void findPrice(ArrayList<Product> allProducts, Scanner sc) {
@@ -187,20 +167,11 @@ public interface InventoryManagement {
         }
     }
 
-    static ArrayList<Product> joinProducts(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
 
-        ArrayList<Product> allProducts = new ArrayList<>();
-        allProducts.addAll(dairyArray);
-        allProducts.addAll(fruitArray);
-        return allProducts;
-    }
-
-    private static void showStock(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray, Scanner sc) {
+    private static void showStock(ArrayList<Product> products, Scanner sc) {
 
         System.out.println("What product do you want to see the stock for? (Enter name or EAN)");
-        findStock(sc, joinProducts(dairyArray, fruitArray));
-
-
+        findStock(sc, products);
     }
 
     private static void findStock(Scanner sc, ArrayList<Product> allProducts) {
@@ -217,32 +188,27 @@ public interface InventoryManagement {
         }
     }
 
-    private static void stockMenu(ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray, Scanner sc) {
+    private static void stockMenu(ArrayList<Product> products, Scanner sc) {
         System.out.println("""
                  
                 Do you want to add stock or see stock?
                 1.Add stock
                 2.See stock""");
         switch (sc.nextLine().toUpperCase()) {
-            case "1" -> addStock(sc, dairyArray, fruitArray);
-            case "2" -> showStock(dairyArray, fruitArray, sc);
+            case "1" -> addStock(sc, products);
+            case "2" -> showStock(products, sc);
             case "E" -> printExit();
             default -> printError();
         }
     }
 
-    private static void addStock(Scanner sc, ArrayList<Dairy> dairyArray, ArrayList<Fruit> fruitArray) {
+    private static void addStock(Scanner sc, ArrayList<Product> products) {
         System.out.println("What product do you want to add the stock for? (Enter name or EAN)");
         String input = sc.nextLine().toUpperCase();
 
-        for (Product product : dairyArray) {
+        for (Product product : products) {
             enterStock(sc, input, product);
         }
-        for (Product product : fruitArray) {
-            enterStock(sc, input, product);
-        }
-
-
     }
 
     private static void enterStock(Scanner sc, String input, Product product) {

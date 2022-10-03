@@ -38,7 +38,7 @@ public interface POS {
 
     private static void checkout(ArrayList<Product> cart, Gson gson) {
         showCart(cart);
-        writeToJSON(cart, gson);
+        writeCartToJSON(cart, gson);
         cart.forEach(product -> product.setStock(product.getStock() - 1));
         cart.clear();
     }
