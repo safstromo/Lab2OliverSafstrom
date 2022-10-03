@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="add removeProducts">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="add POS class add Foodstore class">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/POS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +119,8 @@
       <workItem from="1664383023062" duration="7338000" />
       <workItem from="1664447337635" duration="21000" />
       <workItem from="1664451777543" duration="6453000" />
-      <workItem from="1664516024355" duration="3538000" />
+      <workItem from="1664516024355" duration="4663000" />
+      <workItem from="1664777123433" duration="963000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -197,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664459724209</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add POS class add Foodstore class">
+      <created>1664519679850</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1664519679850</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -225,6 +234,7 @@
     <MESSAGE value="add writeToJson" />
     <MESSAGE value="add importProducts" />
     <MESSAGE value="add removeProducts" />
-    <option name="LAST_COMMIT_MESSAGE" value="add removeProducts" />
+    <MESSAGE value="add POS class add Foodstore class" />
+    <option name="LAST_COMMIT_MESSAGE" value="add POS class add Foodstore class" />
   </component>
 </project>

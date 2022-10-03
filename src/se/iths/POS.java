@@ -9,27 +9,32 @@ import java.util.Scanner;
 
 import static se.iths.InventoryManagement.*;
 
-public class POS {
+public interface POS {
+
+
     public static void main(String[] args) {
 
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Product> products = new ArrayList<>(); //TODO  Import file here
-        ArrayList<Product> cart = new ArrayList<>();
-        do {
-            printMenuPos();
-            menuSwitchPos(sc, products, cart);
-        } while (!menuSwitchPos(sc, products, cart).equals("E"));
+
+        startPOS(sc);
 
 
     }
 
-    private static String menuSwitchPos(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
+    static void startPOS(Scanner sc) {
+        do {
+            printMenuPos();
+            menuSwitchPos(sc, FoodStoreMain.products, FoodStoreMain.cart);
+        } while (!menuSwitchPos(sc, FoodStoreMain.products, FoodStoreMain.cart).equals("E"));
+    }
+
+    public static String menuSwitchPos(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
         String menuChoice = getMenuChoice(sc);
         switch (menuChoice) {
-            case "1" -> addProductToCart(sc, products, cart); // TODO Find product add to arraylist cart
-            case "2" -> removeProductToCart(sc, cart); //TODO Find product remove from arraylist cart
-            case "3" -> showCart(cart); // TODO print Arraylist cart and total price
+            case "1" -> addProductToCart(sc, products, cart);
+            case "2" -> removeProductToCart(sc, cart);
+            case "3" -> showCart(cart);
             case "4" ->
                     checkout(cart); // TODO Print product and prices to recite and save to file, remove products from arraylist cart.
             case "E" -> System.out.println("Good bye!");

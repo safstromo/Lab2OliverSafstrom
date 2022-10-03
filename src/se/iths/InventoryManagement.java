@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class InventoryManagement {
+public interface InventoryManagement {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Fruit> fruitArray = new ArrayList<>();
@@ -23,13 +23,16 @@ public class InventoryManagement {
         fruitArray = importFruitProductDatabase(fruitArray);
         dairyArray = importDairyProductDatabase(dairyArray);
 
+        startInventoryManagement(sc, fruitArray, dairyArray);
+
+    }
+    static void startInventoryManagement(Scanner sc, ArrayList<Fruit> fruitArray, ArrayList<Dairy> dairyArray) {
         do {
             printMenuInventoryManagement();
         } while (!menuSwitchInventoryManagement(sc, dairyArray, fruitArray).equals("E"));
-
     }
 
-    private static ArrayList<Fruit> importFruitProductDatabase(ArrayList<Fruit> fruitArray) {
+    static ArrayList<Fruit> importFruitProductDatabase(ArrayList<Fruit> fruitArray) {
         try {
             FileReader fileReader1 = new FileReader("fruits.json");
             Gson gson = new Gson();
@@ -48,7 +51,7 @@ public class InventoryManagement {
         }
     }
 
-    private static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray) {
+    static ArrayList<Dairy> importDairyProductDatabase(ArrayList<Dairy> dairyArray) {
         try {
             FileReader fileReader1 = new FileReader("dairies.json");
             Gson gson = new Gson();
