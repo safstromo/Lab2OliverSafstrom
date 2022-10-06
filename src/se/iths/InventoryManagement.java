@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class InventoryManagement {
@@ -77,18 +78,6 @@ public class InventoryManagement {
         }
     }
 
-    static void writeCartToJSON(ArrayList<Product> cart, Gson gson) {
-        try {
-            FileWriter fileWriter1 = new FileWriter("cart.json");
-            gson.toJson(cart, fileWriter1);
-            BigDecimal sum = cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-            gson.toJson("Total price is : $" + sum, fileWriter1);
-            fileWriter1.close();
-            System.out.println("Saving successful");
-        } catch (IOException e) {
-            System.out.println("Saving failed");
-        }
-    }
 
     static String getMenuChoice(Scanner sc) {
         String menuChoice;
@@ -115,27 +104,45 @@ public class InventoryManagement {
 
         String tempProductName = getTempProductName(sc);
         Dairy newDairy = new Dairy(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
-        products.add(newDairy);
+
+        if (newDairy.getEan() != -1 && !Objects.equals(newDairy.getPrice(), BigDecimal.valueOf(-1))) {
+            products.add(newDairy);
+        } else {
+            System.out.println("Price and EAN needs to be a number try again");
+        }
 
     }
 
     private static void addFruitProduct(Scanner sc, ArrayList<Product> products) {
         String tempProductName = getTempProductName(sc);
         Fruit newFruit = new Fruit(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
-        products.add(newFruit);
+        if (newFruit.getEan() != -1 && !Objects.equals(newFruit.getPrice(), BigDecimal.valueOf(-1))) {
+            products.add(newFruit);
+        } else {
+            System.out.println("Price and EAN needs to be a number try again");
+        }
 
     }
 
     static int getTempProductPrice(Scanner sc, String tempProductName) {
         System.out.println("Please enter price for " + tempProductName);
         String tempProductPrice = sc.nextLine();
-        return Integer.parseInt(tempProductPrice);
+        try {
+            return Integer.parseInt(tempProductPrice);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     static int getTempProductEAN(Scanner sc, String tempProductName) {
         System.out.println("Please enter EAN for: " + tempProductName);
         String tempProductEAN = sc.nextLine();
-        return Integer.parseInt(tempProductEAN);
+        try {
+
+            return Integer.parseInt(tempProductEAN);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     static String getTempProductName(Scanner sc) {

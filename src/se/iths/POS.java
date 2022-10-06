@@ -3,6 +3,8 @@ package se.iths;
 import com.google.gson.Gson;
 import se.iths.products.Product;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,8 @@ public class POS {
         switch (menuChoice) {
             case "1" -> addProductToCart(sc, products, cart);
             case "2" -> removeProductToCart(sc, cart);
-            case "3" -> showCart(cart);
-            case "4" -> checkout(cart, gson); // TODO LOOKS OF THE PRINT
+            case "3" -> showCart(cart, getCartSum(cart));
+            case "4" -> checkout(sc, cart, gson); // TODO LOOKS OF THE PRINT
             case "E" -> {
                 System.out.println("Good bye!");
                 System.exit(0);
@@ -36,11 +38,38 @@ public class POS {
         }
     }
 
-    private static void checkout(ArrayList<Product> cart, Gson gson) {
-        showCart(cart);
-        writeCartToJSON(cart, gson);
+    private static void checkout(Scanner sc, ArrayList<Product> cart, Gson gson) {
+        printDiscountMenu();
+
+        BigDecimal totalSum = sumAfterDiscount(sc, cart);
+
+        showCart(cart,totalSum);
+        writeCartToJSON(cart,totalSum, gson);
         cart.forEach(product -> product.setStock(product.getStock() - 1));
         cart.clear();
+    }
+
+    private static BigDecimal sumAfterDiscount(Scanner sc, ArrayList<Product> cart) {
+        switch (sc.nextLine()) {
+            case "2" -> {
+                return halfOfDiscount(getCartSum(cart));
+            }
+            case "3" -> {
+                return christmasDiscount(getCartSum(cart));
+            }
+            default -> {
+                return getCartSum(cart);
+            }
+
+        }
+    }
+
+    private static void printDiscountMenu() {
+        System.out.println("""
+                Do you want to add discount?
+                1. No discount
+                2. Half off
+                3. Christmas discount""");
     }
 
     private static void removeProductToCart(Scanner sc, ArrayList<Product> cart) {
@@ -83,11 +112,10 @@ public class POS {
         return products.stream().filter(p -> p.getName().equals(productToFind)).toList();
     }
 
-    static void showCart(ArrayList<Product> cart) {
-        BigDecimal sum = cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    static void showCart(ArrayList<Product> cart, BigDecimal totalSum) {
         System.out.println("Items in cart:");
         cart.forEach(System.out::println);
-        System.out.println("Total price is : $" + sum);
+        System.out.println("Total price is : $" + totalSum);
     }
 
     private static void printMenuPos() {
@@ -112,4 +140,22 @@ public class POS {
     private static BigDecimal halfOfDiscount(BigDecimal SumToBeDiscounted) {
         return SumToBeDiscounted.multiply(BigDecimal.valueOf(0.5));
     }
+
+    static void writeCartToJSON(ArrayList<Product> cart,BigDecimal totalSum, Gson gson) {
+        try {
+            FileWriter fileWriter1 = new FileWriter("cart.json");
+            gson.toJson(cart, fileWriter1);
+            gson.toJson("Total price is : $" + totalSum, fileWriter1);
+            fileWriter1.close();
+            System.out.println("Saving successful");
+        } catch (IOException e) {
+            System.out.println("Saving failed");
+        }
+    }
+
+    private static BigDecimal getCartSum(ArrayList<Product> cart) {
+        BigDecimal sum = cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+        return sum;
+    }
+
 }
