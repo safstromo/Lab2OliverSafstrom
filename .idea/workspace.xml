@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="try catch add product">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/POS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +149,7 @@
       <workItem from="1665042118696" duration="1570000" />
       <workItem from="1665043807705" duration="2475000" />
       <workItem from="1665046615341" duration="326000" />
-      <workItem from="1665047294455" duration="7670000" />
+      <workItem from="1665047294455" duration="9227000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -306,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665045988082</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="cleanup">
+      <created>1665058401328</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1665058401328</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,7 +336,6 @@
     <MESSAGE value=" add showProducts" />
     <MESSAGE value=" add showPrice" />
     <MESSAGE value=" add findPrice" />
-    <MESSAGE value="cleanup" />
     <MESSAGE value="add writeToJson" />
     <MESSAGE value="add importProducts" />
     <MESSAGE value="add removeProducts" />
@@ -344,6 +349,7 @@
     <MESSAGE value="Cleanup" />
     <MESSAGE value="add discount" />
     <MESSAGE value="try catch add product" />
-    <option name="LAST_COMMIT_MESSAGE" value="try catch add product" />
+    <MESSAGE value="cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
   </component>
 </project>

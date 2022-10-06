@@ -43,7 +43,7 @@ public class InventoryManagement {
             case "1" -> addProductMenu(sc, products);
             case "2" -> printProducts(products);
             case "3" -> searchForProduct(sc, products);
-            case "4" -> stockMenu(products, sc);
+            case "4" -> addStock(sc, products);
             case "5" -> removeProduct(products, sc);
             case "E" -> {
                 System.out.println("Saving to file, Good bye!");
@@ -156,59 +156,28 @@ public class InventoryManagement {
 
         System.out.println("What product do you want to see? (Enter name or EAN)");
         String input = sc.nextLine().toUpperCase();
-        findProductByName(products, input);
-        findProductByEAN(products, input);
+        System.out.println(findProductByName(products, input));
+
+        if (findProductByEAN(products,input) != null)
+            System.out.println(findProductByEAN(products,input));
     }
 
-    private static void findProductByName(ArrayList<Product> allProducts, String input) {
-        allProducts.stream()
+    private static List<Product> findProductByName(ArrayList<Product> allProducts, String input) {
+        return allProducts.stream()
                 .filter(product -> product.getName().equals(input))
-                .forEach(System.out::println);
+                .toList();
     }
 
-    private static void findProductByEAN(ArrayList<Product> allProducts, String input) {
+    private static List<Product> findProductByEAN(ArrayList<Product> allProducts, String input) {
         try {
-            allProducts.stream()
+            return allProducts.stream()
                     .filter(product -> product.getEan() == Integer.parseInt(input))
-                    .forEach(System.out::println);
+                    .toList();
         } catch (NumberFormatException ignored) {
         }
+        return null;
     }
 
-
-    private static void showStock(ArrayList<Product> products, Scanner sc) {
-
-        System.out.println("What product do you want to see the stock for? (Enter name or EAN)");
-        findStock(sc, products);
-    }
-
-    private static void findStock(Scanner sc, ArrayList<Product> allProducts) {
-        String input = sc.nextLine().toUpperCase();
-        for (Product product : allProducts) {
-            try {
-                if (product.getEan() == Integer.parseInt(input))
-                    printStock(product);
-            } catch (NumberFormatException e) {
-                if (product.getName().toUpperCase().equals(input)) {
-                    printStock(product);
-                } else printDoesNotExist();
-            }
-        }
-    }
-
-    private static void stockMenu(ArrayList<Product> products, Scanner sc) {
-        System.out.println("""
-                 
-                Do you want to add stock or see stock?
-                1.Add stock
-                2.See stock""");
-        switch (sc.nextLine().toUpperCase()) {
-            case "1" -> addStock(sc, products);
-            case "2" -> showStock(products, sc);
-            case "E" -> printExit();
-            default -> printError();
-        }
-    }
 
     private static void addStock(Scanner sc, ArrayList<Product> products) {
         System.out.println("What product do you want to add the stock for? (Enter name or EAN)");
@@ -273,9 +242,9 @@ public class InventoryManagement {
                       Menu
                 __________________
                 1.Add product
-                2.Show products
-                3.Show price
-                4.Stock
+                2.Show list of products
+                3.Show product
+                4.Add stock
                 5.Remove product
                 e.Exit
                 ------------------""");
