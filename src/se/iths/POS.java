@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import static se.iths.InventoryManagement.*;
 
-public interface POS {
+public class POS {
 
 
     static void startPOS(Scanner sc, Gson gson) {
@@ -47,28 +47,22 @@ public interface POS {
         String productToFind = getTempProductName(sc);
 
         try {
-            List<Product> productToBeRemoved = getProductsByEan(cart, productToFind);
-            System.out.println(productToFind.toUpperCase() + " removed from cart");
-            cart.removeAll(productToBeRemoved);
+            System.out.println(getProductsByEan(cart, productToFind) + " removed from cart");
+            cart.removeAll(getProductsByEan(cart, productToFind));
         } catch (NumberFormatException e) {
-            List<Product> productToBeRemoved = getProductByName(cart, productToFind);
             System.out.println(productToFind.toUpperCase() + " removed from cart");
-            cart.removeAll(productToBeRemoved);
+            cart.removeAll(getProductByName(cart, productToFind));
         }
-    } // TODO BUG REMOVES ALL PRODUCTS IN CATEGORY?
+    } // TODO BUG REMOVES ALL PRODUCTS IN CATEGORY? COPY from INVERTORYMANEGEMENT
 
     private static void addProductToCart(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
         String productToFind = getTempProductName(sc);
         try {
             List<Product> findProductByEan = getProductsByEan(products, productToFind);
-            findProductByEan.forEach(product -> {
-                checkIfInStock(cart, productToFind, findProductByEan, product);
-            });
+            findProductByEan.forEach(product -> checkIfInStock(cart, productToFind, findProductByEan, product));
         } catch (NumberFormatException e) {
             List<Product> findProductByName = getProductByName(products, productToFind);
-            findProductByName.forEach(product -> {
-                checkIfInStock(cart, productToFind, findProductByName, product);
-            });
+            findProductByName.forEach(product -> checkIfInStock(cart, productToFind, findProductByName, product));
         }
     }
 
@@ -109,5 +103,13 @@ public interface POS {
                 4.Checkout
                 e.Exit
                 ------------------""");
+    }
+
+    private static BigDecimal christmasDiscount(BigDecimal SumToBeDiscounted) {
+        return SumToBeDiscounted.multiply(BigDecimal.valueOf(0.8));
+    }
+
+    private static BigDecimal halfOfDiscount(BigDecimal SumToBeDiscounted) {
+        return SumToBeDiscounted.multiply(BigDecimal.valueOf(0.5));
     }
 }

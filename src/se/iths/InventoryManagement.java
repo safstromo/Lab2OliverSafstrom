@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public interface InventoryManagement {
+public class InventoryManagement {
 
     static void startInventoryManagement(Scanner sc, ArrayList<Product> products, Gson gson) {
         do {
@@ -248,8 +248,7 @@ public interface InventoryManagement {
     private static void trySetStock(Scanner sc, Product product) {
         try {
             product.setStock(Integer.parseInt(sc.nextLine()));
-        } catch (Exception e) {
-            System.out.println("Something went wrong try again.");
+        } catch (Exception ignored) {
         }
     }
 

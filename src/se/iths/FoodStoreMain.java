@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class FoodStoreMain implements POS, InventoryManagement {
+public class FoodStoreMain {
     public static ArrayList<Product> products = new ArrayList<>();
     public static ArrayList<Product> cart = new ArrayList<>();
 
@@ -28,13 +28,13 @@ public class FoodStoreMain implements POS, InventoryManagement {
         while (true) {
             System.out.println("""
                     Do you want to start Inventory management or Point of sale?
-                    1. Point of sale
-                    2. Inventory Management
+                    1. Inventory Management
+                    2. Point of sale
                     e. Exit
                     """);
             switch (InventoryManagement.getMenuChoice(sc)) {
-                case "1" -> POS.startPOS(getScanner(),gson);
-                case "2" -> InventoryManagement.startInventoryManagement(getScanner(), products ,gson);
+                case "1" -> InventoryManagement.startInventoryManagement(getScanner(), products ,gson);
+                case "2" -> POS.startPOS(getScanner(),gson);
                 case "E" -> {
                     System.out.println("Good bye!");
                     System.exit(0);

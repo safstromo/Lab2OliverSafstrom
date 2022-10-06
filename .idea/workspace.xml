@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="Cleanup by moving to single arraylist">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="Cleanup">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/FoodStoreMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/se/iths/POS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +61,8 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
   <component name="RunManager" selected="Application.FoodStoreMain">
@@ -135,7 +138,14 @@
       <workItem from="1664447337635" duration="21000" />
       <workItem from="1664451777543" duration="6453000" />
       <workItem from="1664516024355" duration="4663000" />
-      <workItem from="1664777123433" duration="14276000" />
+      <workItem from="1664777123433" duration="15697000" />
+      <workItem from="1664860599494" duration="3203000" />
+      <workItem from="1664879789874" duration="1485000" />
+      <workItem from="1664887495749" duration="15000" />
+      <workItem from="1664952483222" duration="95000" />
+      <workItem from="1665038914987" duration="907000" />
+      <workItem from="1665039870928" duration="66000" />
+      <workItem from="1665039987554" duration="813000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -263,7 +273,21 @@
       <option name="project" value="LOCAL" />
       <updated>1664791252061</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="renamed class by mistake">
+      <created>1664791471406</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1664791471406</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Cleanup">
+      <created>1664791561787</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1664791561787</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,8 +320,9 @@
     <MESSAGE value="Try catch pos" />
     <MESSAGE value="add checkout" />
     <MESSAGE value="add checkout stock" />
-    <MESSAGE value="Cleanup" />
     <MESSAGE value="Cleanup by moving to single arraylist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup by moving to single arraylist" />
+    <MESSAGE value="renamed class by mistake" />
+    <MESSAGE value="Cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
   </component>
 </project>
