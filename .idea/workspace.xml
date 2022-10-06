@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="add discount">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="try catch add product">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/POS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
@@ -148,7 +148,9 @@
       <workItem from="1665041366405" duration="99000" />
       <workItem from="1665041526774" duration="567000" />
       <workItem from="1665042118696" duration="1570000" />
-      <workItem from="1665043807705" duration="2102000" />
+      <workItem from="1665043807705" duration="2475000" />
+      <workItem from="1665046615341" duration="326000" />
+      <workItem from="1665047294455" duration="7670000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -297,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665041450045</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="try catch add product">
+      <created>1665045988082</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1665045988082</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,6 +343,7 @@
     <MESSAGE value="renamed class by mistake" />
     <MESSAGE value="Cleanup" />
     <MESSAGE value="add discount" />
-    <option name="LAST_COMMIT_MESSAGE" value="add discount" />
+    <MESSAGE value="try catch add product" />
+    <option name="LAST_COMMIT_MESSAGE" value="try catch add product" />
   </component>
 </project>

@@ -29,7 +29,7 @@ public class POS {
             case "1" -> addProductToCart(sc, products, cart);
             case "2" -> removeProductToCart(sc, cart);
             case "3" -> showCart(cart, getCartSum(cart));
-            case "4" -> checkout(sc, cart, gson); // TODO LOOKS OF THE PRINT
+            case "4" -> checkout(sc, cart, gson);
             case "E" -> {
                 System.out.println("Good bye!");
                 System.exit(0);
@@ -40,11 +40,9 @@ public class POS {
 
     private static void checkout(Scanner sc, ArrayList<Product> cart, Gson gson) {
         printDiscountMenu();
-
         BigDecimal totalSum = sumAfterDiscount(sc, cart);
-
-        showCart(cart,totalSum);
-        writeCartToJSON(cart,totalSum, gson);
+        showCart(cart, totalSum);
+        writeCartToJSON(cart, totalSum, gson);
         cart.forEach(product -> product.setStock(product.getStock() - 1));
         cart.clear();
     }
@@ -60,7 +58,6 @@ public class POS {
             default -> {
                 return getCartSum(cart);
             }
-
         }
     }
 
@@ -76,13 +73,13 @@ public class POS {
         String productToFind = getTempProductName(sc);
 
         try {
-            System.out.println(getProductsByEan(cart, productToFind) + " removed from cart");
-            cart.removeAll(getProductsByEan(cart, productToFind));
+            System.out.println(productToFind.toUpperCase() + " removed from cart");
+            cart.removeIf(product -> product.getEan() == Integer.parseInt(productToFind));
         } catch (NumberFormatException e) {
             System.out.println(productToFind.toUpperCase() + " removed from cart");
-            cart.removeAll(getProductByName(cart, productToFind));
+            cart.removeIf(product -> product.getName().equals(productToFind));
         }
-    } // TODO BUG REMOVES ALL PRODUCTS IN CATEGORY? COPY from INVERTORYMANEGEMENT
+    }
 
     private static void addProductToCart(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
         String productToFind = getTempProductName(sc);
@@ -141,7 +138,7 @@ public class POS {
         return SumToBeDiscounted.multiply(BigDecimal.valueOf(0.5));
     }
 
-    static void writeCartToJSON(ArrayList<Product> cart,BigDecimal totalSum, Gson gson) {
+    static void writeCartToJSON(ArrayList<Product> cart, BigDecimal totalSum, Gson gson) {
         try {
             FileWriter fileWriter1 = new FileWriter("cart.json");
             gson.toJson(cart, fileWriter1);

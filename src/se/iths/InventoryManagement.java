@@ -12,9 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class InventoryManagement {
 
@@ -44,7 +42,7 @@ public class InventoryManagement {
         switch (menuChoice) {
             case "1" -> addProductMenu(sc, products);
             case "2" -> printProducts(products);
-            case "3" -> showPrice(sc, products);
+            case "3" -> searchForProduct(sc, products);
             case "4" -> stockMenu(products, sc);
             case "5" -> removeProduct(products, sc);
             case "E" -> {
@@ -154,23 +152,26 @@ public class InventoryManagement {
         System.out.println(products);
     }
 
-    private static void showPrice(Scanner sc, ArrayList<Product> products) {
+    private static void searchForProduct(Scanner sc, ArrayList<Product> products) {
 
-        System.out.println("What product do you want to see the price for? (Enter name or EAN)");
-        findPrice(products, sc);
+        System.out.println("What product do you want to see? (Enter name or EAN)");
+        String input = sc.nextLine().toUpperCase();
+        findProductByName(products, input);
+        findProductByEAN(products, input);
     }
 
-    private static void findPrice(ArrayList<Product> allProducts, Scanner sc) {
-        String input = sc.nextLine().toUpperCase();
-        for (Product product : allProducts) {
-            try {
-                if (product.getEan() == Integer.parseInt(input))
-                    printPrice(product);
-            } catch (NumberFormatException e) {
-                if (product.getName().toUpperCase().equals(input)) {
-                    printPrice(product);
-                } else printDoesNotExist();
-            }
+    private static void findProductByName(ArrayList<Product> allProducts, String input) {
+        allProducts.stream()
+                .filter(product -> product.getName().equals(input))
+                .forEach(System.out::println);
+    }
+
+    private static void findProductByEAN(ArrayList<Product> allProducts, String input) {
+        try {
+            allProducts.stream()
+                    .filter(product -> product.getEan() == Integer.parseInt(input))
+                    .forEach(System.out::println);
+        } catch (NumberFormatException ignored) {
         }
     }
 
