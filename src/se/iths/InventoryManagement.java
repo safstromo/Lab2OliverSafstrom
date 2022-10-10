@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class InventoryManagement {
 
@@ -41,28 +42,38 @@ public class InventoryManagement {
 
         switch (menuChoice) {
             case "1" -> addProductMenu(sc, products);
-            case "2" -> printProducts(products);
+            case "2" -> printProductsSortedByName(products);
             case "3" -> searchForProduct(sc, products);
-            case "4" -> addStock(sc, products);
+            case "4" -> stockMenu(products, sc);
             case "5" -> removeProduct(products, sc);
-            case "E" -> {
-                System.out.println("Saving to file, Good bye!");
-                writeProductsToJSON(products, gson);
-                System.exit(0);
-            }
+            case "E" -> systemExit(products, gson);
             default -> printError();
         }
         return menuChoice;
     }
 
+    private static void systemExit(ArrayList<Product> products, Gson gson) {
+        System.out.println("Saving to file, Good bye!");
+        writeProductsToJSON(products, gson);
+        System.exit(0);
+    }
+
     private static void removeProduct(ArrayList<Product> products, Scanner sc) {
         System.out.println("Enter name or EAN for the product you want to remove.");
         String productToBeDeleted = getTempProductName(sc);
-        products.removeIf(o -> o.getName().equals(productToBeDeleted));
+        products.removeIf(checkName(productToBeDeleted));
         try {
-            products.removeIf(o -> o.getEan() == Integer.parseInt(productToBeDeleted));
+            products.removeIf(checkEan(productToBeDeleted));
         } catch (Exception ignored) {
         }
+    }
+
+    private static Predicate<Product> checkEan(String productToBeDeleted) {
+        return o -> CheckEan(productToBeDeleted, o);
+    }
+
+    private static Predicate<Product> checkName(String productToBeDeleted) {
+        return o -> CheckName(o.getName(), productToBeDeleted);
     }
 
     private static void writeProductsToJSON(ArrayList<Product> products, Gson gson) {
@@ -84,11 +95,7 @@ public class InventoryManagement {
     }
 
     private static void addProductMenu(Scanner sc, ArrayList<Product> products) {
-        System.out.println("""
-                 
-                What do you want to add?
-                1.Fruit product
-                2.Dairy product""");
+        printAddProductMenu();
         switch (sc.nextLine().toUpperCase()) {
             case "1" -> addFruitProduct(sc, products);
             case "2" -> addDairyProduct(sc, products);
@@ -98,12 +105,20 @@ public class InventoryManagement {
 
     }
 
+    private static void printAddProductMenu() {
+        System.out.println("""
+                 
+                What do you want to add?
+                1.Fruit product
+                2.Dairy product""");
+    }
+
     private static void addDairyProduct(Scanner sc, ArrayList<Product> products) {
 
         String tempProductName = getTempProductName(sc);
-        Dairy newDairy = new Dairy(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
+        Dairy newDairy = getNewDairy(sc, tempProductName);
 
-        if (newDairy.getEan() != -1 && !Objects.equals(newDairy.getPrice(), BigDecimal.valueOf(-1))) {
+        if (checkIfNotNumber(newDairy)) {
             products.add(newDairy);
         } else {
             System.out.println("Price and EAN needs to be a number try again");
@@ -111,15 +126,31 @@ public class InventoryManagement {
 
     }
 
+    private static boolean checkIfNotNumber(Dairy newDairy) {
+        return checkIfNotNumber(newDairy.getEan(), newDairy.getPrice());
+    }
+
+    private static Dairy getNewDairy(Scanner sc, String tempProductName) {
+        return new Dairy(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
+    }
+
     private static void addFruitProduct(Scanner sc, ArrayList<Product> products) {
         String tempProductName = getTempProductName(sc);
-        Fruit newFruit = new Fruit(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
-        if (newFruit.getEan() != -1 && !Objects.equals(newFruit.getPrice(), BigDecimal.valueOf(-1))) {
+        Fruit newFruit = getNewFruit(sc, tempProductName);
+        if (checkIfNotNumber(newFruit.getEan(), newFruit.getPrice())) {
             products.add(newFruit);
         } else {
             System.out.println("Price and EAN needs to be a number try again");
         }
 
+    }
+
+    private static boolean checkIfNotNumber(int newFruit, BigDecimal newFruit1) {
+        return newFruit != -1 && !Objects.equals(newFruit1, BigDecimal.valueOf(-1));
+    }
+
+    private static Fruit getNewFruit(Scanner sc, String tempProductName) {
+        return new Fruit(tempProductName, getTempProductPrice(sc, tempProductName), getTempProductEAN(sc, tempProductName));
     }
 
     static int getTempProductPrice(Scanner sc, String tempProductName) {
@@ -148,36 +179,77 @@ public class InventoryManagement {
         return sc.nextLine().toUpperCase();
     }
 
-    private static void printProducts(ArrayList<Product> products) {
-        System.out.println(products);
+    static void printProductsSortedByName(ArrayList<Product> products) {
+        products.stream()
+                .sorted(Comparator.comparing(Product::getName))
+                .forEach(System.out::println);
     }
 
     private static void searchForProduct(Scanner sc, ArrayList<Product> products) {
 
         System.out.println("What product do you want to see? (Enter name or EAN)");
         String input = sc.nextLine().toUpperCase();
-        System.out.println(findProductByName(products, input));
-
-        if (findProductByEAN(products,input) != null)
-            System.out.println(findProductByEAN(products,input));
+        findProductByName(products, input);
+        findProductByEAN(products, input);
     }
 
-    private static List<Product> findProductByName(ArrayList<Product> allProducts, String input) {
-        return allProducts.stream()
-                .filter(product -> product.getName().equals(input))
-                .toList();
+    private static void findProductByName(ArrayList<Product> allProducts, String input) {
+        allProducts.stream()
+                .filter(checkName(input))
+                .forEach(System.out::println);
     }
 
-    private static List<Product> findProductByEAN(ArrayList<Product> allProducts, String input) {
+    private static void findProductByEAN(ArrayList<Product> allProducts, String input) {
         try {
-            return allProducts.stream()
-                    .filter(product -> product.getEan() == Integer.parseInt(input))
-                    .toList();
+            allProducts.stream()
+                    .filter(checkEan(input))
+                    .forEach(System.out::println);
         } catch (NumberFormatException ignored) {
         }
-        return null;
     }
 
+
+    private static void showStock(ArrayList<Product> products, Scanner sc) {
+
+        System.out.println("What product do you want to see the stock for? (Enter name or EAN)");
+        findStock(sc, products);
+    }
+
+    private static void findStock(Scanner sc, ArrayList<Product> allProducts) {
+        String input = sc.nextLine().toUpperCase();
+        for (Product product : allProducts) {
+            try {
+                if (CheckEan(input, product))
+                    printStock(product);
+            } catch (NumberFormatException e) {
+                if (CheckName(product.getName().toUpperCase(), input)) {
+                    printStock(product);
+                } else printDoesNotExist();
+            }
+        }
+    }
+
+    private static boolean CheckName(String product, String input) {
+        return product.equals(input);
+    }
+
+    private static boolean CheckEan(String input, Product product) {
+        return product.getEan() == Integer.parseInt(input);
+    }
+
+    private static void stockMenu(ArrayList<Product> products, Scanner sc) {
+        System.out.println("""
+                 
+                Do you want to add stock or see stock?
+                1.Add stock
+                2.See stock""");
+        switch (sc.nextLine().toUpperCase()) {
+            case "1" -> addStock(sc, products);
+            case "2" -> showStock(products, sc);
+            case "E" -> printExit();
+            default -> printError();
+        }
+    }
 
     private static void addStock(Scanner sc, ArrayList<Product> products) {
         System.out.println("What product do you want to add the stock for? (Enter name or EAN)");
@@ -186,24 +258,20 @@ public class InventoryManagement {
         for (Product product : products) {
             enterStock(sc, input, product);
         }
-    }
+    }//TODO
 
     private static void enterStock(Scanner sc, String input, Product product) {
         try {
-            if (product.getEan() == Integer.parseInt(input)) {
+            if (CheckEan(input, product)) {
                 askForStock(product);
                 trySetStock(sc, product);
             }
         } catch (NumberFormatException e) {
-            if (product.getName().toUpperCase().equals(input)) {
+            if (CheckName(product.getName().toUpperCase(), input)) {
                 askForStock(product);
                 trySetStock(sc, product);
             } else printDoesNotExist();
         }
-    }
-
-    private static void printPrice(Product product) {
-        System.out.println("The price for: " + product.getName() + " is: " + product.getPrice());
     }
 
     private static void printStock(Product product) {
@@ -242,9 +310,9 @@ public class InventoryManagement {
                       Menu
                 __________________
                 1.Add product
-                2.Show list of products
-                3.Show product
-                4.Add stock
+                2.Show list of products sorted by name
+                3.Show product of choise
+                4.Stock
                 5.Remove product
                 e.Exit
                 ------------------""");

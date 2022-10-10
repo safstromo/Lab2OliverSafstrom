@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import static se.iths.InventoryManagement.*;
 
@@ -26,10 +28,11 @@ public class POS {
         String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
-            case "1" -> addProductToCart(sc, products, cart);
-            case "2" -> removeProductToCart(sc, cart);
-            case "3" -> showCart(cart, getCartSum(cart));
-            case "4" -> checkout(sc, cart, gson);
+            case "1" -> printProductsSortedByName(products);
+            case "2" -> addProductToCart(sc, products, cart);
+            case "3" -> removeProductToCart(sc, cart);
+            case "4" -> showCart(cart, getCartSum(cart));
+            case "5" -> checkout(sc, cart, gson);
             case "E" -> {
                 System.out.println("Good bye!");
                 System.exit(0);
@@ -43,8 +46,12 @@ public class POS {
         BigDecimal totalSum = sumAfterDiscount(sc, cart);
         showCart(cart, totalSum);
         writeCartToJSON(cart, totalSum, gson);
-        cart.forEach(product -> product.setStock(product.getStock() - 1));
+        cart.forEach(removeStock());
         cart.clear();
+    }
+
+    private static Consumer<Product> removeStock() {
+        return product -> product.setStock(product.getStock() - 1);
     }
 
     private static BigDecimal sumAfterDiscount(Scanner sc, ArrayList<Product> cart) {
@@ -73,12 +80,20 @@ public class POS {
         String productToFind = getTempProductName(sc);
 
         try {
+            cart.removeIf(checkEan(productToFind));
             System.out.println(productToFind.toUpperCase() + " removed from cart");
-            cart.removeIf(product -> product.getEan() == Integer.parseInt(productToFind));
         } catch (NumberFormatException e) {
             System.out.println(productToFind.toUpperCase() + " removed from cart");
-            cart.removeIf(product -> product.getName().equals(productToFind));
+            cart.removeIf(checkName(productToFind));
         }
+    }
+
+    private static Predicate<Product> checkName(String productToFind) {
+        return product -> product.getName().equals(productToFind);
+    }
+
+    private static Predicate<Product> checkEan(String productToFind) {
+        return product -> product.getEan() == Integer.parseInt(productToFind);
     }
 
     private static void addProductToCart(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
@@ -102,11 +117,11 @@ public class POS {
     }
 
     private static List<Product> getProductsByEan(ArrayList<Product> products, String productToFind) {
-        return products.stream().filter(p -> p.getEan() == Integer.parseInt(productToFind)).toList();
+        return products.stream().filter(checkEan(productToFind)).toList();
     }
 
     private static List<Product> getProductByName(ArrayList<Product> products, String productToFind) {
-        return products.stream().filter(p -> p.getName().equals(productToFind)).toList();
+        return products.stream().filter(checkName(productToFind)).toList();
     }
 
     static void showCart(ArrayList<Product> cart, BigDecimal totalSum) {
@@ -122,10 +137,11 @@ public class POS {
                   Point of sale
                       Menu
                 __________________
-                1.Add product to cart
-                2.Remove product from cart
-                3.Show cart
-                4.Checkout
+                1.Show products sorted by name
+                2.Add product to cart
+                3.Remove product from cart
+                4.Show cart
+                5.Checkout
                 e.Exit
                 ------------------""");
     }
@@ -151,8 +167,7 @@ public class POS {
     }
 
     private static BigDecimal getCartSum(ArrayList<Product> cart) {
-        BigDecimal sum = cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
-        return sum;
+        return cart.stream().map(Product::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 }

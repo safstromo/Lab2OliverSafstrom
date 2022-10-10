@@ -7,6 +7,8 @@
     <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/se/iths/POS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/POS.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/se/iths/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/products/Product.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +151,10 @@
       <workItem from="1665042118696" duration="1570000" />
       <workItem from="1665043807705" duration="2475000" />
       <workItem from="1665046615341" duration="326000" />
-      <workItem from="1665047294455" duration="9227000" />
+      <workItem from="1665047294455" duration="11481000" />
+      <workItem from="1665123484444" duration="1247000" />
+      <workItem from="1665390273369" duration="1881000" />
+      <workItem from="1665393351071" duration="869000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -312,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665058401328</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="cleanup">
+      <created>1665061799296</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1665061799296</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
