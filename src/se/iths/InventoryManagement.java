@@ -42,7 +42,7 @@ public class InventoryManagement {
 
         switch (menuChoice) {
             case "1" -> addProductMenu(sc, products);
-            case "2" -> printProductsSortedByName(products);
+            case "2" -> printProductsSortedByCategory(products);
             case "3" -> searchForProduct(sc, products);
             case "4" -> stockMenu(products, sc);
             case "5" -> removeProduct(products, sc);
@@ -179,9 +179,9 @@ public class InventoryManagement {
         return sc.nextLine().toUpperCase();
     }
 
-    static void printProductsSortedByName(ArrayList<Product> products) {
+    static void printProductsSortedByCategory(ArrayList<Product> products) {
         products.stream()
-                .sorted(Comparator.comparing(Product::getName))
+                .sorted(Comparator.comparing(Product::getCategory))
                 .forEach(System.out::println);
     }
 
@@ -258,7 +258,7 @@ public class InventoryManagement {
         for (Product product : products) {
             enterStock(sc, input, product);
         }
-    }//TODO
+    }
 
     private static void enterStock(Scanner sc, String input, Product product) {
         try {
@@ -270,7 +270,20 @@ public class InventoryManagement {
             if (CheckName(product.getName().toUpperCase(), input)) {
                 askForStock(product);
                 trySetStock(sc, product);
-            } else printDoesNotExist();
+            }
+        }
+    }
+
+    private static void askForStock(Product product) {
+        System.out.println("Enter stock for: " + product.getName());
+        System.out.println("How many do you have in stock?");
+    }
+
+    private static void trySetStock(Scanner sc, Product product) {
+        try {
+            product.setStock(Integer.parseInt(sc.nextLine()));
+        } catch (Exception e) {
+            printDoesNotExist();
         }
     }
 
@@ -290,18 +303,6 @@ public class InventoryManagement {
         System.out.println("The product you are looking for do not exist.");
     }
 
-    private static void trySetStock(Scanner sc, Product product) {
-        try {
-            product.setStock(Integer.parseInt(sc.nextLine()));
-        } catch (Exception ignored) {
-        }
-    }
-
-    private static void askForStock(Product product) {
-        System.out.println("Enter stock for: " + product.getName());
-        System.out.println("How many do you have in stock?");
-    }
-
     private static void printMenuInventoryManagement() {
         System.out.println("""
                             
@@ -310,7 +311,7 @@ public class InventoryManagement {
                       Menu
                 __________________
                 1.Add product
-                2.Show list of products sorted by name
+                2.Show list of products sorted by category
                 3.Show product of choise
                 4.Stock
                 5.Remove product

@@ -3,10 +3,9 @@ package se.iths.products;
 import java.util.Objects;
 
 public class Fruit extends Product {
-    Category category = Category.FRUIT;
 
     public Fruit(String name, double price, int ean) {
-        super(name, price, ean);
+        super(name, price, ean, Category.FRUIT);
 
     }
 

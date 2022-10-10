@@ -9,15 +9,21 @@ public class Product implements Serializable{
     private final BigDecimal price;
     private final int ean;
     private int stock;
+    final Category category;
 
-    public Product(String name, double price, int ean) {
+    public Product(String name, double price, int ean, Category category) {
         this.name = name;
         this.price = BigDecimal.valueOf(price);
         this.ean = ean;
+        this.category = category;
     }
 
     public String getName() {
             return name;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 
     public BigDecimal getPrice() {
@@ -59,13 +65,13 @@ public class Product implements Serializable{
     }
 
     public enum Category{
-        FRUIT,
         DAIRY,
-        MEATS,
-        FISH,
-        FROZEN,
         DRINKS,
         DRYFOODS,
+        FISH,
+        FROZEN,
+        FRUIT,
+        MEATS,
 
     }
 }

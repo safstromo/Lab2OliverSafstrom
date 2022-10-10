@@ -28,17 +28,19 @@ public class POS {
         String menuChoice = getMenuChoice(sc);
 
         switch (menuChoice) {
-            case "1" -> printProductsSortedByName(products);
+            case "1" -> printProductsSortedByCategory(products);
             case "2" -> addProductToCart(sc, products, cart);
             case "3" -> removeProductToCart(sc, cart);
             case "4" -> showCart(cart, getCartSum(cart));
             case "5" -> checkout(sc, cart, gson);
-            case "E" -> {
-                System.out.println("Good bye!");
-                System.exit(0);
-            }
+            case "E" -> systemExit();
             default -> InventoryManagement.printError();
         }
+    }
+
+    private static void systemExit() {
+        System.out.println("Good bye!");
+        System.exit(0);
     }
 
     private static void checkout(Scanner sc, ArrayList<Product> cart, Gson gson) {
@@ -137,7 +139,7 @@ public class POS {
                   Point of sale
                       Menu
                 __________________
-                1.Show products sorted by name
+                1.Show products sorted by category
                 2.Add product to cart
                 3.Remove product from cart
                 4.Show cart
