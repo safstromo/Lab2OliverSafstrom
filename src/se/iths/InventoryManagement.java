@@ -315,7 +315,7 @@ public class InventoryManagement {
                 3.Show product of choise
                 4.Stock
                 5.Remove product
-                e.Exit
+                e.Save and Exit
                 ------------------""");
     }
 }
