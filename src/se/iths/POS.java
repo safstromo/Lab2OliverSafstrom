@@ -44,6 +44,7 @@ public class POS {
     }
 
     private static void checkout(Scanner sc, ArrayList<Product> cart, Gson gson) {
+        // Checkout cart and save receipt to file
         printDiscountMenu();
         BigDecimal totalSum = sumAfterDiscount(sc, cart);
         showCart(cart, totalSum);
@@ -57,6 +58,7 @@ public class POS {
     }
 
     private static BigDecimal sumAfterDiscount(Scanner sc, ArrayList<Product> cart) {
+        // Returns total sum after chosen discount
         switch (sc.nextLine()) {
             case "2" -> {
                 return halfOfDiscount(getCartSum(cart));
@@ -91,14 +93,17 @@ public class POS {
     }
 
     private static Predicate<Product> checkName(String productToFind) {
+        // Check if product name is equals product
         return product -> product.getName().equals(productToFind);
     }
 
     private static Predicate<Product> checkEan(String productToFind) {
+        // Check if product EAN is equals product
         return product -> product.getEan() == Integer.parseInt(productToFind);
     }
 
     private static void addProductToCart(Scanner sc, ArrayList<Product> products, ArrayList<Product> cart) {
+        // Finds product and adds objekt to cart.
         String productToFind = getTempProductName(sc);
         try {
             List<Product> findProductByEan = getProductsByEan(products, productToFind);
@@ -110,6 +115,7 @@ public class POS {
     }
 
     private static void checkIfInStock(ArrayList<Product> cart, String productToFind, List<Product> findProductByEan, Product product) {
+        // check if product is in stock.
         if (product.getStock() > 0) {
             System.out.println(productToFind.toUpperCase() + " Added to cart");
             cart.addAll(findProductByEan);
@@ -157,6 +163,7 @@ public class POS {
     }
 
     static void writeCartToJSON(ArrayList<Product> cart, BigDecimal totalSum, Gson gson) {
+        // Write cart to file.
         try {
             FileWriter fileWriter1 = new FileWriter("cart.json");
             gson.toJson(cart, fileWriter1);

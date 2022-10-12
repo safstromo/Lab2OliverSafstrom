@@ -21,7 +21,8 @@ public class InventoryManagement {
     }
 
     static ArrayList<Product> importProductDatabase(ArrayList<Product> products, Gson gson) {
-        try (FileReader fileReader1 = new FileReader("products.json")){
+        // Imports products from file
+        try (FileReader fileReader1 = new FileReader("products.json")) {
             Type getTypeList = new TypeToken<ArrayList<Product>>() {
             }.getType();
             System.out.println("Import of products successful");
@@ -55,6 +56,7 @@ public class InventoryManagement {
     }
 
     private static void removeProduct(ArrayList<Product> products, Scanner sc) {
+        //Removes product from list
         System.out.println("Enter name or EAN for the product you want to remove.");
         String productToBeDeleted = getTempProductName(sc);
         products.removeIf(checkName(productToBeDeleted));
@@ -65,15 +67,18 @@ public class InventoryManagement {
     }
 
     private static Predicate<Product> checkEan(String productToBeDeleted) {
+        //Check is Ean number is equals input
         return o -> CheckEan(productToBeDeleted, o);
     }
 
     private static Predicate<Product> checkName(String productToBeDeleted) {
+        //Check is Name is equals input
         return o -> CheckName(o.getName(), productToBeDeleted);
     }
 
     private static void writeProductsToJSON(ArrayList<Product> products, Gson gson) {
-        try (FileWriter fileWriter = new FileWriter("products.json")){
+        // Save list fo file
+        try (FileWriter fileWriter = new FileWriter("products.json")) {
             gson.toJson(products, fileWriter);
             fileWriter.close();
             System.out.println("Saving successful");
@@ -110,7 +115,7 @@ public class InventoryManagement {
     }
 
     private static void addDairyProduct(Scanner sc, ArrayList<Product> products) {
-
+        // Adds dairy product fo list
         String tempProductName = getTempProductName(sc);
         Dairy newDairy = getNewDairy(sc, tempProductName);
 
@@ -123,6 +128,7 @@ public class InventoryManagement {
     }
 
     private static boolean checkIfNotNumber(Dairy newDairy) {
+        // Checks if input is a number
         return checkIfNotNumber(newDairy.getEan(), newDairy.getPrice());
     }
 
@@ -131,6 +137,7 @@ public class InventoryManagement {
     }
 
     private static void addFruitProduct(Scanner sc, ArrayList<Product> products) {
+        //Adds fruit product to list
         String tempProductName = getTempProductName(sc);
         Fruit newFruit = getNewFruit(sc, tempProductName);
         if (checkIfNotNumber(newFruit.getEan(), newFruit.getPrice())) {
@@ -150,6 +157,7 @@ public class InventoryManagement {
     }
 
     static int getTempProductPrice(Scanner sc, String tempProductName) {
+        // Get a temp price from user
         System.out.println("Please enter price for " + tempProductName);
         String tempProductPrice = sc.nextLine();
         try {
@@ -160,6 +168,7 @@ public class InventoryManagement {
     }
 
     static int getTempProductEAN(Scanner sc, String tempProductName) {
+        //Get a temp EAN number from user
         System.out.println("Please enter EAN for: " + tempProductName);
         String tempProductEAN = sc.nextLine();
         try {
@@ -171,6 +180,7 @@ public class InventoryManagement {
     }
 
     static String getTempProductName(Scanner sc) {
+        // Get a temp name from user
         System.out.print("Please enter product name: ");
         return sc.nextLine().toUpperCase();
     }
@@ -182,7 +192,7 @@ public class InventoryManagement {
     }
 
     private static void searchForProduct(Scanner sc, ArrayList<Product> products) {
-
+        // Search for product my name or EAN
         System.out.println("What product do you want to see? (Enter name or EAN)");
         String input = sc.nextLine().toUpperCase();
         findProductByName(products, input);
@@ -212,6 +222,7 @@ public class InventoryManagement {
     }
 
     private static void findStock(Scanner sc, ArrayList<Product> allProducts) {
+        // Finds product and prints stock
         String input = sc.nextLine().toUpperCase();
         for (Product product : allProducts) {
             try {
