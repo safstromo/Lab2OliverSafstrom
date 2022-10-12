@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="Cleanup">
+    <list default="true" id="baf2395b-3272-46e1-b470-5888a0cb7524" name="Changes" comment="printMenuInventory change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/se/iths/InventoryManagement.java" afterDir="false" />
     </list>
@@ -155,7 +155,13 @@
       <workItem from="1665393351071" duration="2364000" />
       <workItem from="1665400977825" duration="72000" />
       <workItem from="1665467193806" duration="6000" />
-      <workItem from="1665471072203" duration="433000" />
+      <workItem from="1665471072203" duration="500000" />
+      <workItem from="1665471829998" duration="23000" />
+      <workItem from="1665474831060" duration="630000" />
+      <workItem from="1665475974513" duration="626000" />
+      <workItem from="1665478532342" duration="488000" />
+      <workItem from="1665479444223" duration="1302000" />
+      <workItem from="1665491137728" duration="4472000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1663823707369</created>
@@ -339,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665395704328</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="printMenuInventory change">
+      <created>1665471556299</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1665471556299</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,6 +391,7 @@
     <MESSAGE value="cleanup" />
     <MESSAGE value="cleanup InventoryManagement" />
     <MESSAGE value="Cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleanup" />
+    <MESSAGE value="printMenuInventory change" />
+    <option name="LAST_COMMIT_MESSAGE" value="printMenuInventory change" />
   </component>
 </project>

@@ -6,10 +6,7 @@ import se.iths.products.Dairy;
 import se.iths.products.Fruit;
 import se.iths.products.Product;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
@@ -24,14 +21,13 @@ public class InventoryManagement {
     }
 
     static ArrayList<Product> importProductDatabase(ArrayList<Product> products, Gson gson) {
-        try {
-            FileReader fileReader1 = new FileReader("products.json");
-            Type getTypeList = new TypeToken<ArrayList<Fruit>>() {
+        try (FileReader fileReader1 = new FileReader("products.json")){
+            Type getTypeList = new TypeToken<ArrayList<Product>>() {
             }.getType();
-            System.out.println("Import of fruit products successful");
+            System.out.println("Import of products successful");
             return gson.fromJson(fileReader1, getTypeList);
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("File of products not found continues without import.");
             return products;
         }
@@ -77,13 +73,13 @@ public class InventoryManagement {
     }
 
     private static void writeProductsToJSON(ArrayList<Product> products, Gson gson) {
-        try {
-            FileWriter fileWriter = new FileWriter("products.json");
+        try (FileWriter fileWriter = new FileWriter("products.json")){
             gson.toJson(products, fileWriter);
             fileWriter.close();
             System.out.println("Saving successful");
         } catch (IOException e) {
             System.out.println("Saving failed");
+
         }
     }
 
